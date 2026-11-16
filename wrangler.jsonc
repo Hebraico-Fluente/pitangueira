@@ -1,0 +1,17 @@
+// Configuração para Cloudflare Workers.
+// O banco D1 "pitangueira-leads" é criado automaticamente no primeiro deploy.
+// A senha do painel (PAINEL_SENHA) é configurada no painel da Cloudflare, como Secret.
+{
+  "name": "pitangueira",
+  "main": "src/worker.js",
+  "compatibility_date": "2025-11-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    { "binding": "DB", "database_name": "pitangueira-leads" }
+  ],
+  "observability": { "enabled": true }
+}
