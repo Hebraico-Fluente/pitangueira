@@ -337,6 +337,9 @@
               <label>Nome do casal *
                 <input name="nome" autocomplete="name" placeholder="Ex.: Ana & Pedro" required>
               </label>
+              <label>Seu WhatsApp
+                <input name="whatsapp" type="tel" autocomplete="tel" inputmode="tel" placeholder="(41) 99999-9999">
+              </label>
               <div class="linha2">
                 <label>Data do casamento
                   <input name="data" type="date">
@@ -653,6 +656,7 @@ function montarMensagem() {
   if (dataBR) m += `*Data do casamento:* ${dataBR}\n`;
   if (f.local.value.trim()) m += `*Local:* ${f.local.value.trim()}\n`;
   if (f.convidados.value) m += `*Convidados:* ${f.convidados.value}\n`;
+  if (f.whatsapp.value.trim()) m += `*WhatsApp:* ${f.whatsapp.value.trim()}\n`;
   m += `\n*Itens escolhidos:*\n`;
   for (const { s, q, subtotal } of linhas) {
     if (subtotal == null) m += `• ${s.nome}: a combinar\n`;
@@ -682,7 +686,46 @@ $("#enviar").addEventListener("click", e => {
   }
   $("#erro").textContent = "";
   atualizarLink();
+  registrarLead();
 });
+
+/* ---------- Registro do lead (painel da Pétala e da Isa) ----------
+   Ao enviar, o pedido também é salvo no painel de leads (/painel).
+   Se a API não estiver disponível, o WhatsApp abre normalmente. */
+function idDoPedido() {
+  let id;
+  try { id = sessionStorage.getItem("pitangueira-lead-id"); } catch (e) {}
+  if (!id) {
+    id = (crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2, 12));
+    try { sessionStorage.setItem("pitangueira-lead-id", id); } catch (e) {}
+  }
+  return id;
+}
+
+function registrarLead() {
+  if (!/^https?:$/.test(location.protocol)) return;
+  const f = $("#form-pedido").elements;
+  const dados = {
+    id: idDoPedido(),
+    nome: f.nome.value.trim(),
+    whatsapp: f.whatsapp.value.trim(),
+    data_casamento: f.data.value,
+    local: f.local.value.trim(),
+    convidados: f.convidados.value,
+    obs: f.obs.value.trim(),
+    itens: linhasSelecionadas().map(({ s, q, subtotal }) => ({
+      id: s.id, nome: s.nome, qtd: q, unidade: s.unidade || "", preco: s.preco, subtotal,
+    })),
+  };
+  try {
+    fetch("/api/leads", {
+      method: "POST",
+      keepalive: true,
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(dados),
+    }).catch(() => {});
+  } catch (e) {}
+}
 
 $("#limpar").onclick = () => {
   const ids = Object.keys(selecao);
