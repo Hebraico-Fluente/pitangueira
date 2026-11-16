@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pitangueira · Design para casamentos criativos</title>
+<meta name="description" content="Pitangueira — design e papelaria para casamentos autênticos. Monte seu orçamento online e envie direto pelo WhatsApp.">
+<link rel="icon" href="marca/icone-bordo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Fontes do manual: TheSeasons (títulos) e Gotham (textos).
+     Como são fontes pagas, usamos as equivalentes gratuitas mais próximas:
+     DM Serif Display, Pinyon Script (detalhes manuscritos) e Montserrat. -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Montserrat:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Cores do manual de marca */
+    --bordo: #AD2A49;
+    --laranja: #FF7C38;
+    --coral: #F67E7D;
+    --amarelo: #FFCE59;
+    /* Apoio */
+    --bordo-escuro: #7E1C35;
+    --laranja-escuro: #F0682A;
+    --pessego: #FFC9A8;
+    --creme: #FFF7EE;
+    --areia: #FCEADB;
+    --linha: #F1D6C2;
+    --texto: #3B1622;
+    --suave: #7D5A60;
+    --branco: #FFFFFF;
+
+    --f-titulo: "DM Serif Display", Georgia, serif;
+    --f-script: "Pinyon Script", cursive;
+    --f-texto: "Montserrat", system-ui, sans-serif;
+
+    --raio: 16px;
+    --sombra: 0 14px 34px -16px rgba(126, 28, 53, .35);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body { margin: 0; font-family: var(--f-texto); color: var(--texto); background: var(--creme); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3 { font-family: var(--f-titulo); font-weight: 400; line-height: 1.08; margin: 0; }
+  .script { font-family: var(--f-script); font-weight: 400; }
+  a { color: inherit; }
+  button { font: inherit; cursor: pointer; }
+  img { max-width: 100%; display: block; }
+  .container { width: min(1160px, 100% - 40px); margin-inline: auto; }
+  :focus-visible { outline: 2px solid var(--bordo); outline-offset: 3px; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  /* Marca-texto, como nos posts */
+  .marca-texto { background: linear-gradient(transparent 18%, var(--bordo) 18%, var(--bordo) 88%, transparent 88%); color: #fff; padding: 0 .25em; box-decoration-break: clone; -webkit-box-decoration-break: clone; border-radius: 3px; transform: skew(-4deg); display: inline; }
+  .marca-texto.claro { background: linear-gradient(transparent 18%, var(--pessego) 18%, var(--pessego) 88%, transparent 88%); color: var(--bordo); }
+
+  /* ---------- Topo ---------- */
+  header.topo { position: sticky; top: 0; z-index: 30; background: rgba(255, 247, 238, .94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--linha); }
+  .topo .container { display: flex; align-items: center; justify-content: space-between; height: 70px; gap: 16px; }
+  .topo .logo img { height: 46px; width: auto; }
+  nav.menu { display: flex; gap: 28px; font-size: .9rem; font-weight: 500; }
+  nav.menu a { text-decoration: none; color: var(--bordo); position: relative; }
+  nav.menu a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--laranja); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+  nav.menu a:hover::after { transform: scaleX(1); }
+  @media (max-width: 680px) {
+    .topo .logo img { height: 36px; }
+    nav.menu { gap: 14px; font-size: .82rem; }
+    nav.menu .so-desktop { display: none; }
+  }
+
+  /* ---------- Hero (laranja, coração e estrelas, como no Instagram) ---------- */
+  .hero { background: var(--laranja); color: #fff; position: relative; overflow: hidden; padding: 96px 0 104px; text-align: center; isolation: isolate; }
+  .hero .coracao { position: absolute; z-index: -1; width: min(760px, 120vw); left: 50%; top: 50%; transform: translate(-50%, -48%) rotate(-8deg); fill: var(--laranja-escuro); opacity: .8; }
+  .estrela { position: absolute; z-index: -1; fill: var(--pessego); opacity: .75; }
+  .hero .e1 { width: 220px; left: -60px; top: 30px; transform: rotate(12deg); }
+  .hero .e2 { width: 260px; right: -70px; bottom: -40px; transform: rotate(-10deg); }
+  .hero .e3 { width: 70px; right: 14%; top: 50px; fill: var(--amarelo); opacity: .9; }
+  .hero .icone-hero { width: 84px; margin: 0 auto 18px; }
+  .etiqueta { display: inline-block; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; margin-bottom: 14px; }
+  .hero .etiqueta { color: var(--bordo); background: var(--pessego); padding: 6px 14px; border-radius: 999px; }
+  .hero h1 { font-size: clamp(2.8rem, 7vw, 5.2rem); max-width: 14ch; margin: 0 auto; }
+  .hero h1 .script { display: block; font-size: 1.15em; line-height: .9; margin-top: .05em; }
+  .hero p { max-width: 52ch; margin: 22px auto 34px; font-size: 1.06rem; }
+  .botoes { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 26px; border-radius: 999px; border: 2px solid transparent; font-weight: 600; font-size: .95rem; text-decoration: none; transition: background .2s, color .2s, transform .15s, border-color .2s; }
+  .btn:active { transform: scale(.97); }
+  .btn-bordo { background: var(--bordo); color: #fff; }
+  .btn-bordo:hover { background: var(--bordo-escuro); }
+  .btn-branco { border-color: #fff; color: #fff; }
+  .btn-branco:hover { background: #fff; color: var(--bordo); }
+
+  /* Faixa ondulada entre seções */
+  .faixa { display: block; width: 100%; height: 40px; margin-top: -1px; }
+
+  /* ---------- Seções ---------- */
+  section.bloco { padding: 84px 0; position: relative; }
+  .titulo-secao { text-align: center; margin-bottom: 46px; }
+  .titulo-secao h2 { font-size: clamp(2.2rem, 4.5vw, 3.2rem); color: var(--bordo); }
+  .titulo-secao h2 .script { color: var(--laranja); font-size: 1.2em; }
+  .titulo-secao p { color: var(--suave); max-width: 58ch; margin: 12px auto 0; }
+
+  /* ---------- Quem somos ---------- */
+  .sobre { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  @media (max-width: 860px) { .sobre { grid-template-columns: 1fr; } }
+  .sobre-texto p { margin: 0 0 16px; font-size: 1.02rem; }
+  .sobre-texto .destaque { font-family: var(--f-titulo); font-size: 1.5rem; color: var(--bordo); line-height: 1.3; }
+  .duo { display: grid; gap: 16px; }
+  .pessoa { background: var(--bordo); color: #fff; border-radius: 22px; padding: 20px 22px; display: flex; gap: 18px; align-items: center; box-shadow: var(--sombra); }
+  .pessoa:nth-child(2) { margin-left: 40px; background: var(--laranja); }
+  .pessoa .foto { width: 84px; height: 84px; border-radius: 50%; flex-shrink: 0; overflow: hidden; border: 3px solid var(--pessego); background: var(--coral); display: grid; place-items: center; }
+  .pessoa .foto img { width: 100%; height: 100%; object-fit: cover; }
+  .pessoa .foto span { font-family: var(--f-script); font-size: 2.4rem; color: #fff; }
+  .pessoa h3 { font-family: var(--f-script); font-size: 2.3rem; line-height: 1; }
+  .pessoa p { margin: 4px 0 0; font-size: .9rem; opacity: .95; }
+
+  /* ---------- Orçamento ---------- */
+  #orcamento { background: var(--areia); }
+  .orc-grid { display: grid; grid-template-columns: 1fr 390px; gap: 32px; align-items: start; }
+  @media (max-width: 980px) { .orc-grid { grid-template-columns: 1fr; } }
+
+  .categoria + .categoria { margin-top: 44px; }
+  .categoria .cab-cat { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+  .categoria .cab-cat img { width: 28px; }
+  .categoria h3 { font-size: 1.9rem; color: var(--bordo); }
+  .categoria > p { color: var(--suave); margin: 0 0 18px; font-size: .93rem; }
+  .itens { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 12px; }
+
+  .item { background: var(--branco); border: 1.5px solid var(--linha); border-radius: var(--raio); padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 6px; transition: border-color .2s, box-shadow .2s, transform .2s; position: relative; }
+  .item:hover { transform: translateY(-2px); }
+  .item.selecionado { border-color: var(--bordo); box-shadow: 0 0 0 1px var(--bordo), var(--sombra); }
+  .item.selecionado::before { content: "✓"; position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; background: var(--bordo); color: #fff; font-size: .8rem; display: grid; place-items: center; }
+  .item h4 { margin: 0; font-size: 1rem; font-weight: 600; }
+  .item .desc { color: var(--suave); font-size: .82rem; flex: 1; margin: 0; }
+  .item .desc:empty { display: none; }
+  @media (max-width: 600px) {
+    .itens { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .item { padding: 14px 12px 12px; }
+    .item h4 { font-size: .9rem; }
+    .item .preco { font-size: .9rem; }
+    .item .acoes { flex-direction: column; align-items: stretch; }
+    .btn-add { width: 100%; }
+    .stepper { justify-content: space-between; }
+    .stepper input { width: 40px; }
+  }
+  .item h4 { flex: 1; }
+  .item .preco { font-weight: 600; color: var(--bordo); font-variant-numeric: tabular-nums; }
+  .item .preco small { font-weight: 400; color: var(--suave); }
+  .item .acoes { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; min-height: 40px; flex-wrap: wrap; }
+  .btn-add { border: 1.5px solid var(--laranja); color: var(--laranja-escuro); background: transparent; padding: 7px 16px; border-radius: 999px; font-size: .86rem; font-weight: 600; transition: background .2s, color .2s, border-color .2s; }
+  .btn-add:hover { background: var(--laranja); color: #fff; }
+  .item.selecionado .btn-add { background: var(--bordo); border-color: var(--bordo); color: #fff; }
+
+  .stepper { display: inline-flex; align-items: center; border: 1.5px solid var(--linha); border-radius: 999px; overflow: hidden; background: var(--creme); }
+  .stepper button { width: 34px; height: 34px; border: 0; background: transparent; font-size: 1.1rem; color: var(--bordo); }
+  .stepper button:hover { background: var(--areia); }
+  .stepper input { width: 52px; border: 0; background: transparent; text-align: center; font: inherit; font-weight: 600; font-variant-numeric: tabular-nums; -moz-appearance: textfield; }
+  .stepper input::-webkit-outer-spin-button, .stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+  /* Resumo */
+  .resumo { position: sticky; top: 90px; background: var(--branco); border-radius: 22px; box-shadow: var(--sombra); max-height: calc(100vh - 110px); overflow: auto; }
+  .resumo .topo-resumo { background: var(--bordo); color: #fff; padding: 20px 24px 18px; position: relative; overflow: hidden; }
+  .resumo .topo-resumo h3 { font-size: 1.8rem; }
+  .resumo .topo-resumo p { margin: 2px 0 0; font-size: .82rem; opacity: .85; }
+  .resumo .topo-resumo .estrela { width: 110px; right: -30px; top: -30px; fill: var(--laranja); opacity: .55; z-index: 0; }
+  .resumo .topo-resumo > h3, .resumo .topo-resumo > p { position: relative; z-index: 1; }
+  .resumo .corpo-resumo { padding: 8px 24px 24px; }
+  .resumo .vazio { color: var(--suave); font-size: .9rem; padding: 14px 0; }
+  .lista-resumo { list-style: none; margin: 8px 0 0; padding: 0; }
+  .lista-resumo li { display: flex; gap: 10px; align-items: flex-start; padding: 10px 0; border-bottom: 1px dashed var(--linha); font-size: .9rem; }
+  .lista-resumo li .nome { flex: 1; }
+  .lista-resumo li .nome small { display: block; color: var(--suave); }
+  .lista-resumo li .valor { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 500; }
+  .lista-resumo li button { border: 0; background: transparent; color: var(--suave); font-size: 1.15rem; line-height: 1; padding: 2px 4px; }
+  .lista-resumo li button:hover { color: var(--bordo); }
+  .total { display: flex; justify-content: space-between; align-items: baseline; margin: 16px 0 4px; }
+  .total span:first-child { color: var(--suave); font-size: .9rem; }
+  .total strong { font-size: 1.9rem; font-family: var(--f-titulo); font-weight: 400; color: var(--bordo); font-variant-numeric: tabular-nums; }
+  .aviso { font-size: .78rem; color: var(--suave); margin: 0 0 18px; }
+  #total-obs { margin: -2px 0 8px; text-align: right; color: var(--bordo); font-weight: 500; }
+  .aviso-idv { font-size: .8rem; background: #FFF1D1; border-left: 3px solid var(--amarelo); color: var(--texto); padding: 8px 12px; border-radius: 8px; margin: -6px 0 18px; }
+  .titulo-secao .nota-tabela { display: inline-block; margin-top: 16px; font-size: .86rem; color: var(--bordo); background: var(--branco); border: 1.5px dashed var(--coral); border-radius: 14px; padding: 10px 18px; max-width: 70ch; }
+
+  .campos { display: grid; gap: 10px; margin-bottom: 14px; }
+  .campos .linha2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .campos label { display: grid; gap: 4px; font-size: .78rem; font-weight: 500; color: var(--suave); }
+  .campos input, .campos textarea { font: inherit; font-size: 16px; color: var(--texto); border: 1.5px solid var(--linha); border-radius: 10px; padding: 9px 12px; background: var(--creme); width: 100%; }
+  .campos textarea { resize: vertical; min-height: 64px; }
+  .campos input:focus, .campos textarea:focus { outline: none; border-color: var(--laranja); }
+  .erro { color: var(--bordo); font-size: .85rem; font-weight: 500; margin: -4px 0 10px; min-height: 1em; }
+  .btn-whats { width: 100%; background: #1F8F55; color: #fff; padding: 14px; }
+  .btn-whats:hover { background: #177444; }
+  .btn-whats[aria-disabled="true"] { background: #C9BDBA; cursor: not-allowed; }
+  .btn-whats svg { width: 20px; height: 20px; }
+  .limpar { display: block; margin: 10px auto 0; background: none; border: 0; color: var(--suave); font-size: .82rem; text-decoration: underline; }
+
+  .barra-mobile, .fechar-resumo { display: none; }
+  @media (max-width: 980px) {
+    .resumo { position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 50; border-radius: 22px 22px 0 0; max-height: 88vh; transform: translateY(105%); transition: transform .3s cubic-bezier(.2,.8,.2,1); }
+    .resumo.aberto { transform: translateY(0); }
+    .fechar-resumo { display: block; position: absolute; top: 16px; right: 16px; z-index: 2; border: 0; background: rgba(255,255,255,.2); color: #fff; border-radius: 50%; width: 34px; height: 34px; font-size: 1.2rem; }
+    .barra-mobile { display: flex; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 40; background: var(--bordo); color: #fff; border: 0; border-radius: 999px; padding: 14px 22px; align-items: center; justify-content: space-between; box-shadow: var(--sombra); transform: translateY(150%); transition: transform .3s; font-size: .92rem; }
+    .barra-mobile.visivel { transform: translateY(0); }
+    .barra-mobile strong { font-variant-numeric: tabular-nums; }
+    .veu { position: fixed; inset: 0; background: rgba(59, 22, 34, .45); z-index: 45; opacity: 0; pointer-events: none; transition: opacity .3s; }
+    .veu.visivel { opacity: 1; pointer-events: auto; }
+    body.com-barra { padding-bottom: 80px; }
+  }
+
+  /* ---------- Portfólio ---------- */
+  .port-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 24px; }
+  .projeto { border: 0; padding: 0; background: none; text-align: left; color: inherit; display: block; }
+  .projeto .capa { aspect-ratio: 4 / 5; border-radius: 22px; overflow: hidden; position: relative; }
+  .projeto .capa img, .projeto .capa .ph { width: 100%; height: 100%; object-fit: cover; transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+  .projeto:hover .capa img, .projeto:hover .capa .ph { transform: scale(1.04); }
+  .projeto .capa .ver { position: absolute; left: 14px; bottom: 14px; background: #fff; color: var(--bordo); font-size: .8rem; font-weight: 600; padding: 6px 14px; border-radius: 999px; opacity: 0; transform: translateY(6px); transition: opacity .25s, transform .25s; }
+  .projeto:hover .capa .ver, .projeto:focus-visible .capa .ver { opacity: 1; transform: none; }
+  .projeto .info { padding: 14px 4px 0; }
+  .projeto h3 { font-family: var(--f-script); font-size: 2.3rem; color: var(--bordo); line-height: 1; }
+  .projeto .info p { margin: 4px 0 0; color: var(--suave); font-size: .88rem; }
+  .ph { display: grid; place-items: center; color: rgba(255,255,255,.9); font-family: var(--f-script); font-size: 1.8rem; position: relative; overflow: hidden; }
+  .ph::after { content: ""; position: absolute; width: 60%; aspect-ratio: 1; right: -15%; bottom: -15%; background: url("marca/icone-branco.svg") center / contain no-repeat; opacity: .18; }
+
+  dialog.galeria { width: min(1000px, 100% - 24px); max-height: 92vh; border: 0; border-radius: 22px; padding: 0; background: var(--creme); color: var(--texto); }
+  dialog.galeria::backdrop { background: rgba(59, 22, 34, .7); }
+  .galeria .cab { position: sticky; top: 0; background: var(--bordo); color: #fff; padding: 20px 24px 16px; display: flex; justify-content: space-between; gap: 16px; z-index: 1; }
+  .galeria .cab h3 { font-family: var(--f-script); font-size: 2.6rem; line-height: 1; }
+  .galeria .cab p { margin: 4px 0 0; font-size: .88rem; opacity: .85; }
+  .galeria .fechar { border: 0; background: rgba(255,255,255,.2); color: #fff; width: 38px; height: 38px; border-radius: 50%; font-size: 1.3rem; flex-shrink: 0; }
+  .galeria .corpo { padding: 22px 24px 28px; }
+  .galeria .texto { margin: 0 0 18px; max-width: 70ch; }
+  .fotos { columns: 3 230px; column-gap: 12px; }
+  .fotos > * { break-inside: avoid; margin-bottom: 12px; border-radius: 14px; overflow: hidden; }
+  .fotos .ph { aspect-ratio: 3 / 4; }
+  .fotos .ph:nth-child(3n+2) { aspect-ratio: 1; }
+
+  /* ---------- Contato ---------- */
+  .contato { background: var(--bordo); color: #fff; text-align: center; overflow: hidden; isolation: isolate; }
+  .contato .estrela { fill: var(--laranja); opacity: .35; }
+  .contato .e1 { width: 240px; left: -70px; bottom: -60px; }
+  .contato .e2 { width: 140px; right: 6%; top: -30px; fill: var(--coral); }
+  .contato h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
+  .contato h2 .script { display: block; font-size: 1.3em; color: var(--amarelo); line-height: 1; }
+  .contato p { max-width: 50ch; margin: 14px auto 30px; opacity: .9; }
+  .contato .btn-laranja { background: var(--laranja); color: #fff; }
+  .contato .btn-laranja:hover { background: var(--laranja-escuro); }
+  footer { background: var(--bordo-escuro); color: #F3C9D1; text-align: center; font-size: .82rem; padding: 26px 0; }
+  footer img { height: 54px; margin: 0 auto 10px; }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+</style>
+</head>
+<body>
+
+<!-- Formas reutilizáveis: estrela/explosão e coração dos posts -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="estrela" viewBox="0 0 200 200"><path d="M100 0 L116 70 L186 30 L132 92 L200 112 L128 124 L150 196 L100 140 L52 200 L70 126 L0 116 L66 90 L18 26 L86 66 Z"/></symbol>
+  <symbol id="coracao" viewBox="0 0 200 180"><path d="M100 178 C40 130 0 96 0 52 C0 22 24 0 54 0 C76 0 92 12 100 30 C108 12 124 0 146 0 C176 0 200 22 200 52 C200 96 160 130 100 178 Z"/></symbol>
+</svg>
+
+<header class="topo">
+  <div class="container">
+    <a href="#inicio" class="logo"><img src="marca/logo-horizontal-bordo.svg" alt="Pitangueira — Design para casamentos criativos"></a>
+    <nav class="menu" aria-label="Principal">
+      <a href="#sobre" class="so-desktop">Quem somos</a>
+      <a href="#orcamento">Orçamento</a>
+      <a href="#portfolio">Portfólio</a>
+      <a href="#contato" class="so-desktop">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <svg viewBox="0 0 200 180" class="coracao" aria-hidden="true"><use href="#coracao"/></svg>
+    <svg viewBox="0 0 200 200" class="estrela e1" aria-hidden="true"><use href="#estrela"/></svg>
+    <svg viewBox="0 0 200 200" class="estrela e2" aria-hidden="true"><use href="#estrela"/></svg>
+    <svg viewBox="0 0 200 200" class="estrela e3" aria-hidden="true"><use href="#estrela"/></svg>
+    <div class="container">
+      <img class="icone-hero" src="marca/icone-branco.svg" alt="" aria-hidden="true">
+      <span class="etiqueta">Design & papelaria para casamentos</span>
+      <h1>Seu casamento com a <span class="script">cara de vocês</span></h1>
+      <p>Criamos a identidade visual e a papelaria do seu grande dia, sem moldes prontos. Monte seu orçamento aqui e envie direto para o nosso WhatsApp.</p>
+      <div class="botoes">
+        <a class="btn btn-bordo" href="#orcamento">Montar meu orçamento</a>
+        <a class="btn btn-branco" href="#portfolio">Ver portfólio</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" id="sobre">
+    <div class="container sobre">
+      <div class="sobre-texto">
+        <span class="etiqueta" style="color: var(--laranja-escuro)">Quem somos</span>
+        <p class="destaque">Duas designers, duas cabeças cheias de ideias e uma vontade enorme de transformar <span class="marca-texto">histórias de amor</span> em coisas que possam ser vistas, tocadas e lembradas.</p>
+        <p>A gente acredita que casamento não precisa ter cara de “mais um casamento”. Ele pode ter personalidade, humor, cor, referências inesperadas e, principalmente, ter a cara de quem está celebrando.</p>
+        <p>Assim como uma pitangueira, cada história tem suas raízes e cresce no seu tempo, de forma <span class="marca-texto claro">livre e autêntica</span>. Atendemos casais do mundo todo.</p>
+      </div>
+      <div class="duo">
+        <!-- Para colocar fotos: troque <span>P</span> por <img src="fotos/petala.jpg" alt="Pétala"> -->
+        <div class="pessoa">
+          <div class="foto"><span>P</span></div>
+          <div><h3>Pétala</h3><p>Designer e artista. Mãe de três gatos, dois cachorros e 80 plantas, curte bons drinks em boas festas e ama ouvir uma história de amor.</p></div>
+        </div>
+        <div class="pessoa">
+          <div class="foto"><span>I</span></div>
+          <div><h3>Isa</h3><p>Arquiteta e designer. Mãe de três gatas, faz um brownie incrível e ama o amor!</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" id="orcamento">
+    <div class="container">
+      <div class="titulo-secao">
+        <h2>Monte seu <span class="script">orçamento</span></h2>
+        <p>Escolha os itens que vocês querem e veja o valor na hora. Depois é só enviar pelo WhatsApp.</p>
+        <p class="nota-tabela">Valores da <strong>arte digital</strong>, praticados quando a <strong>Identidade Visual</strong> é contratada. Impressão e produção não inclusas. Para projetos sem identidade visual, consulte orçamento.</p>
+      </div>
+
+      <div class="orc-grid">
+        <div id="catalogo"></div>
+
+        <aside class="resumo" id="resumo" aria-labelledby="resumo-titulo">
+          <div class="topo-resumo">
+            <svg viewBox="0 0 200 200" class="estrela" aria-hidden="true"><use href="#estrela"/></svg>
+            <h3 id="resumo-titulo">Seu pedido</h3>
+            <p>Itens escolhidos e total estimado</p>
+            <button class="fechar-resumo" type="button" aria-label="Fechar resumo" data-fechar-resumo>×</button>
+          </div>
+          <div class="corpo-resumo">
+            <div id="resumo-itens"></div>
+            <div class="total"><span>Total estimado</span><strong id="total" aria-live="polite">R$ 0,00</strong></div>
+            <p class="aviso" id="total-obs" hidden>+ itens com valor a combinar</p>
+            <p class="aviso">Valores da arte digital (impressão e produção não inclusas). O orçamento final é confirmado com a gente na conversa.</p>
+            <p class="aviso-idv" id="aviso-idv" hidden>Os valores desta tabela valem com a <strong>Identidade Visual</strong> contratada. Sem ela, o orçamento é sob consulta.</p>
+
+            <form id="form-pedido" class="campos" novalidate>
+              <label>Nome do casal *
+                <input name="nome" autocomplete="name" placeholder="Ex.: Ana & Pedro" required>
+              </label>
+              <div class="linha2">
+                <label>Data do casamento
+                  <input name="data" type="date">
+                </label>
+                <label>Nº de convidados
+                  <input name="convidados" type="number" min="0" inputmode="numeric" placeholder="Ex.: 120">
+                </label>
+              </div>
+              <label>Cidade / local
+                <input name="local" placeholder="Ex.: Recife, PE">
+              </label>
+              <label>Conta um pouco da história de vocês
+                <textarea name="obs" placeholder="Referências, cores, o que é a cara de vocês..."></textarea>
+              </label>
+            </form>
+            <p class="erro" id="erro" role="alert"></p>
+            <a class="btn btn-whats" id="enviar" href="#" target="_blank" rel="noopener" aria-disabled="true">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C2.7 15.6 2.2 13.8 2.2 12 2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zM20.4 3.6C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.6-8.3z"/></svg>
+              Enviar pedido pelo WhatsApp
+            </a>
+            <button class="limpar" id="limpar" type="button" hidden>Limpar seleção</button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="bloco" id="portfolio">
+    <div class="container">
+      <div class="titulo-secao">
+        <h2>Histórias que já <span class="script">desenhamos</span></h2>
+        <p>Alguns dos casamentos que tivemos a alegria de criar. Toque em um projeto para ver as fotos.</p>
+      </div>
+      <div class="port-grid" id="port-grid"></div>
+    </div>
+  </section>
+
+  <section class="bloco contato" id="contato">
+    <svg viewBox="0 0 200 200" class="estrela e1" aria-hidden="true"><use href="#estrela"/></svg>
+    <svg viewBox="0 0 200 200" class="estrela e2" aria-hidden="true"><use href="#estrela"/></svg>
+    <div class="container">
+      <h2>Agora, conta pra gente a sua <span class="script">História de Amor</span></h2>
+      <p>Tem alguma dúvida ou quer algo que não está na lista? Chama a gente, vamos adorar conversar.</p>
+      <div class="botoes">
+        <a class="btn btn-laranja" id="link-whats" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a>
+        <a class="btn btn-branco" id="link-insta" href="#" target="_blank" rel="noopener">@pitangueiracriativa</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <img src="marca/logo-vertical-branco.svg" alt="Pitangueira" style="height: 110px">
+  © <span id="ano"></span> Pitangueira · Design para casamentos criativos
+</footer>
+
+<button class="barra-mobile" id="barra-mobile" type="button" aria-controls="resumo">
+  <span id="barra-qtd">0 itens</span>
+  <strong id="barra-total">R$ 0,00 · Ver pedido</strong>
+</button>
+<div class="veu" id="veu" data-fechar-resumo></div>
+
+<dialog class="galeria" id="galeria" aria-labelledby="gal-titulo">
+  <div class="cab">
+    <div><h3 id="gal-titulo"></h3><p id="gal-sub"></p></div>
+    <button class="fechar" type="button" aria-label="Fechar galeria" id="gal-fechar">×</button>
+  </div>
+  <div class="corpo">
+    <p class="texto" id="gal-texto"></p>
+    <div class="fotos" id="gal-fotos"></div>
+  </div>
+</dialog>
+
+<script>
+/* =====================================================================
+   CONFIGURAÇÃO — EDITE AQUI
+   Tudo que você precisa mudar no dia a dia está nesta parte.
+   ===================================================================== */
+
+// Número do WhatsApp: código do país (55) + DDD + número, só números.
+const WHATSAPP = "554187112437";
+
+// Link do Instagram
+const INSTAGRAM = "https://www.instagram.com/pitangueiracriativa/";
+
+// Categorias (na ordem em que aparecem no site)
+const CATEGORIAS = [
+  { id: "identidade", nome: "Identidade visual & digital", texto: "A base de tudo: o visual que vai acompanhar o casamento do convite à festa." },
+  { id: "convites",   nome: "Convites",                    texto: "Para avisar, convidar e fazer quem vocês amam se sentir especial." },
+  { id: "cerimonia",  nome: "Cerimônia",                   texto: "Os detalhes do momento do sim." },
+  { id: "festa",      nome: "Recepção & festa",            texto: "Os detalhes que fazem os convidados dizerem: “isso é muito a cara deles!”" },
+  { id: "mimos",      nome: "Lembrancinhas",               texto: "Mimos para os convidados levarem um pedacinho da festa." },
+  { id: "aplicada",   nome: "Arte aplicada em objetos",    texto: "Valor por arte e aplicação. O produto é fornecido pelo casal." },
+];
+
+// Serviços e preços (valores da ARTE DIGITAL, com Identidade Visual contratada).
+//  - preco: valor em reais. Use null para "a combinar".
+//  - unidade / plural (opcional): para itens cobrados por arte ou por unidade.
+//    Aparece um campo de quantidade.
+//  - descricao (opcional): texto curto embaixo do nome.
+const SERVICOS = [
+  { id: "identidade-visual", categoria: "identidade", nome: "Identidade Visual + Logo", preco: 2200, descricao: "Valores desta tabela valem com a Identidade Visual contratada." },
+  { id: "website",           categoria: "identidade", nome: "Website", preco: 2500 },
+  { id: "ilustracoes",       categoria: "identidade", nome: "Ilustrações personalizadas", preco: 100, unidade: "ilustração", plural: "ilustrações" },
+
+  { id: "save-the-date",     categoria: "convites", nome: "Save the date", preco: 120 },
+  { id: "convite-digital",   categoria: "convites", nome: "Convite digital", preco: 210 },
+  { id: "convite-impresso",  categoria: "convites", nome: "Convite impresso", preco: 280, descricao: "Arte para impressão." },
+  { id: "rsvp",              categoria: "convites", nome: "RSVP", preco: 120 },
+  { id: "convite-padrinhos", categoria: "convites", nome: "Convites madrinhas / padrinhos", preco: 450 },
+  { id: "convite-celebrante",categoria: "convites", nome: "Convite celebrante", preco: 400 },
+  { id: "guia-convidados",   categoria: "convites", nome: "Guia dos convidados", preco: 120 },
+
+  { id: "entrada",           categoria: "cerimonia", nome: "Entrada", preco: 200 },
+  { id: "programacao",       categoria: "cerimonia", nome: "Programação", preco: 250 },
+  { id: "caderno-votos",     categoria: "cerimonia", nome: "Caderno de votos", preco: 250 },
+  { id: "porta-alianca",     categoria: "cerimonia", nome: "Porta aliança", preco: 350 },
+  { id: "lagrimas-alegria",  categoria: "cerimonia", nome: "Lágrimas de alegria", preco: 150 },
+  { id: "leque",             categoria: "cerimonia", nome: "Leque", preco: 120 },
+  { id: "porta-petalas",     categoria: "cerimonia", nome: "Porta pétalas", preco: 150 },
+
+  { id: "numero-mesas",      categoria: "festa", nome: "Número das mesas + place cards", preco: 270 },
+  { id: "marcacao-lugares",  categoria: "festa", nome: "Marcação de lugares", preco: 250 },
+  { id: "menu-buffet",       categoria: "festa", nome: "Menu buffet", preco: 200 },
+  { id: "menu-bar",          categoria: "festa", nome: "Menu do bar", preco: 200 },
+  { id: "bolacha-cerveja",   categoria: "festa", nome: "Bolacha de cerveja", preco: 120 },
+  { id: "guardanapo",        categoria: "festa", nome: "Guardanapo", preco: 120 },
+  { id: "recado-noivos",     categoria: "festa", nome: "Recado noivos", preco: 350 },
+  { id: "mesa-jogos",        categoria: "festa", nome: "Mesa jogos", preco: 120 },
+  { id: "caderno-lembrancas",categoria: "festa", nome: "Caderno de lembranças", preco: 350 },
+  { id: "qrcode-fotos",      categoria: "festa", nome: "QR code fotos", preco: 120 },
+  { id: "qrcode-lua-mel",    categoria: "festa", nome: "QR code lua de mel", preco: 120 },
+  { id: "kit-banheiro",      categoria: "festa", nome: "Kit banheiro", preco: 300 },
+  { id: "papel-seda",        categoria: "festa", nome: "Papel seda", preco: 280 },
+
+  { id: "lembrancinhas",     categoria: "mimos", nome: "Lembrancinhas", preco: null, descricao: "Valor a combinar de acordo com o projeto." },
+  { id: "estacao-lembrancinhas", categoria: "mimos", nome: "Estação lembrancinhas", preco: 120 },
+  { id: "tags-lembrancinhas",categoria: "mimos", nome: "Tags lembrancinhas", preco: null, descricao: "Valor a combinar de acordo com o projeto." },
+
+  { id: "pintura-objetos",   categoria: "aplicada", nome: "Pintura de objetos", preco: 60,  unidade: "arte", plural: "artes" },
+  { id: "rotulos-vinhos",    categoria: "aplicada", nome: "Rótulos vinhos",     preco: 120, unidade: "arte", plural: "artes" },
+  { id: "perfume-noivos",    categoria: "aplicada", nome: "Perfume noivos",     preco: 250, unidade: "arte", plural: "artes" },
+  { id: "sandalias",         categoria: "aplicada", nome: "Sandálias",          preco: 250, unidade: "arte", plural: "artes" },
+  { id: "gravacao-vidro",    categoria: "aplicada", nome: "Gravação em vidro",  preco: null, descricao: "Modelo e valores a combinar." },
+];
+
+// Item que, quando escolhido, valida os preços da tabela.
+const ID_IDENTIDADE = "identidade-visual";
+
+// Portfólio: um item por casamento.
+//  - capa: caminho da foto principal (ex.: "fotos/petala-lucas/capa.jpg")
+//  - fotos: lista de fotos da galeria (ex.: ["fotos/petala-lucas/1.jpg", "fotos/petala-lucas/2.jpg"])
+// Enquanto não houver fotos, o site mostra um fundo colorido no lugar.
+// ⚠️ PROJETOS DE EXEMPLO — troque pelos seus.
+const PORTFOLIO = [
+  { nome: "Pétala & Lucas", local: "Identidade visual completa", data: "2027",
+    texto: "Identidade, site com contagem regressiva, rótulos de vinho e papelaria cheia de ilustrações e cor.", capa: "", fotos: [] },
+  { nome: "Projeto 2", local: "Convites e papelaria do dia", data: "",
+    texto: "Escreva aqui um pouco sobre o casal e o que vocês criaram.", capa: "", fotos: [] },
+  { nome: "Projeto 3", local: "Monograma e sinalização", data: "",
+    texto: "Escreva aqui um pouco sobre o casal e o que vocês criaram.", capa: "", fotos: [] },
+];
+
+/* =====================================================================
+   A PARTIR DAQUI É O FUNCIONAMENTO DO SITE — não precisa mexer.
+   ===================================================================== */
+
+const reais = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+const $ = s => document.querySelector(s);
+const servicoPorId = Object.fromEntries(SERVICOS.map(s => [s.id, s]));
+const CHAVE = "pitangueira-orcamento";
+
+let selecao = {};
+try { selecao = JSON.parse(localStorage.getItem(CHAVE)) || {}; } catch (e) {}
+for (const id in selecao) if (!servicoPorId[id]) delete selecao[id];
+
+function salvar() { try { localStorage.setItem(CHAVE, JSON.stringify(selecao)); } catch (e) {} }
+const minimo = s => s.unidade ? Math.max(1, s.minimo || 1) : 1;
+
+/* ---------- Catálogo ---------- */
+function montarCatalogo() {
+  const cat = $("#catalogo");
+  for (const c of CATEGORIAS) {
+    const itens = SERVICOS.filter(s => s.categoria === c.id);
+    if (!itens.length) continue;
+    const bloco = document.createElement("div");
+    bloco.className = "categoria";
+    bloco.innerHTML = `<div class="cab-cat"><img src="marca/icone-laranja.svg" alt=""><h3>${c.nome}</h3></div>${c.texto ? `<p>${c.texto}</p>` : ""}<div class="itens"></div>`;
+    const grade = bloco.querySelector(".itens");
+    for (const s of itens) grade.appendChild(cartao(s));
+    cat.appendChild(bloco);
+  }
+}
+
+function cartao(s) {
+  const el = document.createElement("article");
+  el.className = "item";
+  el.dataset.id = s.id;
+  const precoTxt = s.preco == null
+    ? `A combinar`
+    : s.unidade
+      ? `${reais(s.preco)} <small>/ ${s.unidade}${s.minimo > 1 ? ` · mín. ${s.minimo}` : ""}</small>`
+      : reais(s.preco);
+  el.innerHTML = `<h4>${s.nome}</h4><p class="desc">${s.descricao || ""}</p><div class="preco">${precoTxt}</div><div class="acoes"></div>`;
+  atualizarCartao(el);
+  return el;
+}
+
+function atualizarCartao(el) {
+  const s = servicoPorId[el.dataset.id];
+  const qtd = selecao[s.id];
+  const acoes = el.querySelector(".acoes");
+  el.classList.toggle("selecionado", !!qtd);
+  acoes.innerHTML = "";
+
+  const btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "btn-add";
+  btn.textContent = qtd ? "Adicionado" : "Adicionar";
+  btn.setAttribute("aria-pressed", qtd ? "true" : "false");
+  btn.setAttribute("aria-label", (qtd ? "Remover " : "Adicionar ") + s.nome);
+  btn.onclick = () => {
+    if (selecao[s.id]) delete selecao[s.id];
+    else selecao[s.id] = minimo(s);
+    mudou(s.id);
+  };
+  acoes.appendChild(btn);
+
+  if (qtd && s.unidade) {
+    const st = document.createElement("div");
+    st.className = "stepper";
+    st.innerHTML = `
+      <button type="button" aria-label="Diminuir quantidade">−</button>
+      <input type="number" inputmode="numeric" min="${minimo(s)}" value="${qtd}" aria-label="Quantidade (${s.unidade})">
+      <button type="button" aria-label="Aumentar quantidade">+</button>`;
+    const [menos, campo, mais] = st.children;
+    menos.onclick = () => definirQtd(s, selecao[s.id] - 1);
+    mais.onclick = () => definirQtd(s, selecao[s.id] + 1);
+    campo.onchange = () => definirQtd(s, parseInt(campo.value, 10));
+    acoes.appendChild(st);
+  }
+}
+
+function definirQtd(s, q) {
+  if (!Number.isFinite(q)) q = minimo(s);
+  selecao[s.id] = Math.max(minimo(s), Math.min(q, 9999));
+  mudou(s.id);
+}
+
+function mudou(id) {
+  salvar();
+  const el = document.querySelector(`.item[data-id="${id}"]`);
+  if (el) atualizarCartao(el);
+  atualizarResumo();
+}
+
+/* ---------- Resumo ---------- */
+function linhasSelecionadas() {
+  return SERVICOS.filter(s => selecao[s.id]).map(s => {
+    const q = selecao[s.id];
+    return { s, q, subtotal: s.preco == null ? null : s.preco * (s.unidade ? q : 1) };
+  });
+}
+
+function atualizarResumo() {
+  const linhas = linhasSelecionadas();
+  const total = linhas.reduce((t, l) => t + (l.subtotal || 0), 0);
+  const aCombinar = linhas.some(l => l.subtotal == null);
+  const box = $("#resumo-itens");
+
+  if (!linhas.length) {
+    box.innerHTML = `<p class="vazio">Nenhum item ainda. Toque em <strong>Adicionar</strong> nos serviços para começar.</p>`;
+  } else {
+    const ul = document.createElement("ul");
+    ul.className = "lista-resumo";
+    for (const { s, q, subtotal } of linhas) {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <span class="nome">${s.nome}${s.unidade ? `<small>${q} × ${reais(s.preco)} / ${s.unidade}</small>` : ""}</span>
+        <span class="valor">${subtotal == null ? "a combinar" : reais(subtotal)}</span>
+        <button type="button" aria-label="Remover ${s.nome}">×</button>`;
+      li.querySelector("button").onclick = () => { delete selecao[s.id]; mudou(s.id); };
+      ul.appendChild(li);
+    }
+    box.replaceChildren(ul);
+  }
+
+  $("#total").textContent = reais(total);
+  $("#total-obs").hidden = !aCombinar;
+  $("#aviso-idv").hidden = !linhas.length || !!selecao[ID_IDENTIDADE];
+  $("#enviar").setAttribute("aria-disabled", linhas.length ? "false" : "true");
+  atualizarLink();
+  $("#limpar").hidden = !linhas.length;
+
+  const n = linhas.length;
+  $("#barra-qtd").textContent = `${n} ${n === 1 ? "item" : "itens"}`;
+  $("#barra-total").textContent = `${reais(total)} · Ver pedido`;
+  $("#barra-mobile").classList.toggle("visivel", n > 0);
+  document.body.classList.toggle("com-barra", n > 0);
+  if (!n) fecharResumo();
+}
+
+/* ---------- WhatsApp ---------- */
+
+function montarMensagem() {
+  const f = $("#form-pedido").elements;
+  const linhas = linhasSelecionadas();
+  const total = linhas.reduce((t, l) => t + (l.subtotal || 0), 0);
+  const aCombinar = linhas.some(l => l.subtotal == null);
+  const dataBR = f.data.value ? f.data.value.split("-").reverse().join("/") : "";
+
+  let m = `Olá, Pitangueira! 🧡\nMontei meu orçamento pelo site e queria conversar com vocês.\n\n`;
+  m += `*Nome:* ${f.nome.value.trim()}\n`;
+  if (dataBR) m += `*Data do casamento:* ${dataBR}\n`;
+  if (f.local.value.trim()) m += `*Local:* ${f.local.value.trim()}\n`;
+  if (f.convidados.value) m += `*Convidados:* ${f.convidados.value}\n`;
+  m += `\n*Itens escolhidos:*\n`;
+  for (const { s, q, subtotal } of linhas) {
+    if (subtotal == null) m += `• ${s.nome}: a combinar\n`;
+    else if (s.unidade) m += `• ${s.nome}: ${q} ${q > 1 ? (s.plural || s.unidade) : s.unidade} × ${reais(s.preco)} = ${reais(subtotal)}\n`;
+    else m += `• ${s.nome}: ${reais(subtotal)}\n`;
+  }
+  m += `\n*Total estimado (arte digital):* ${reais(total)}${aCombinar ? " + itens a combinar" : ""}\n`;
+  if (!selecao[ID_IDENTIDADE]) m += `_Ainda não incluí a Identidade Visual, sei que sem ela os valores são sob consulta._\n`;
+  if (f.obs.value.trim()) m += `\n*Sobre nós:* ${f.obs.value.trim()}\n`;
+  return m;
+}
+
+// O botão é um link normal: o endereço é atualizado a cada mudança no pedido.
+function atualizarLink() {
+  $("#enviar").href = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(montarMensagem())}`;
+}
+$("#form-pedido").addEventListener("input", atualizarLink);
+$("#form-pedido").addEventListener("submit", e => e.preventDefault());
+$("#enviar").addEventListener("click", e => {
+  const nome = $("#form-pedido").elements.nome;
+  if (!linhasSelecionadas().length) { e.preventDefault(); return; }
+  if (!nome.value.trim()) {
+    e.preventDefault();
+    $("#erro").textContent = "Por favor, preencha o nome do casal.";
+    nome.focus();
+    return;
+  }
+  $("#erro").textContent = "";
+  atualizarLink();
+});
+
+$("#limpar").onclick = () => {
+  const ids = Object.keys(selecao);
+  selecao = {};
+  ids.forEach(mudou);
+};
+
+/* ---------- Resumo no celular ---------- */
+function abrirResumo() { $("#resumo").classList.add("aberto"); $("#veu").classList.add("visivel"); }
+function fecharResumo() { $("#resumo").classList.remove("aberto"); $("#veu").classList.remove("visivel"); }
+$("#barra-mobile").onclick = abrirResumo;
+document.querySelectorAll("[data-fechar-resumo]").forEach(b => b.onclick = fecharResumo);
+document.addEventListener("keydown", e => { if (e.key === "Escape") fecharResumo(); });
+
+/* ---------- Portfólio ---------- */
+const TONS = [["#FF9A5E", "#FF7C38"], ["#C9435F", "#AD2A49"], ["#FA9C99", "#F67E7D"], ["#FFD978", "#F5AE3C"]];
+function placeholder(i, txt = "") {
+  const [a, b] = TONS[i % TONS.length];
+  return `<div class="ph" style="background: linear-gradient(150deg, ${a}, ${b})">${txt}</div>`;
+}
+const foto = (src, alt) => `<img src="${src}" alt="${alt}" loading="lazy">`;
+
+function montarPortfolio() {
+  const grade = $("#port-grid");
+  PORTFOLIO.forEach((p, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "projeto";
+    b.innerHTML = `
+      <div class="capa">${p.capa ? foto(p.capa, `Projeto ${p.nome}`) : placeholder(i, "fotos em breve")}<span class="ver">Ver projeto</span></div>
+      <div class="info"><h3>${p.nome}</h3><p>${[p.local, p.data].filter(Boolean).join(" · ")}</p></div>`;
+    b.onclick = () => abrirGaleria(p, i);
+    grade.appendChild(b);
+  });
+}
+
+function abrirGaleria(p, i) {
+  $("#gal-titulo").textContent = p.nome;
+  $("#gal-sub").textContent = [p.local, p.data].filter(Boolean).join(" · ");
+  $("#gal-texto").textContent = p.texto || "";
+  $("#gal-fotos").innerHTML = p.fotos && p.fotos.length
+    ? p.fotos.map((f, n) => foto(f, `${p.nome}, foto ${n + 1}`)).join("")
+    : Array.from({ length: 6 }, (_, n) => placeholder(i + n)).join("");
+  $("#galeria").showModal();
+}
+$("#gal-fechar").onclick = () => $("#galeria").close();
+$("#galeria").addEventListener("click", e => { if (e.target === e.currentTarget) e.currentTarget.close(); });
+
+/* ---------- Início ---------- */
+$("#link-whats").href = `https://wa.me/${WHATSAPP}`;
+$("#link-insta").href = INSTAGRAM;
+$("#ano").textContent = new Date().getFullYear();
+montarCatalogo();
+atualizarResumo();
+montarPortfolio();
+</script>
+</body>
+</html>
