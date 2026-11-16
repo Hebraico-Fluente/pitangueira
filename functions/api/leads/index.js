@@ -62,7 +62,7 @@ export async function onRequestPost({ request, env }) {
          data_casamento = excluded.data_casamento, local = excluded.local, convidados = excluded.convidados,
          obs = excluded.obs, itens = excluded.itens, total = excluded.total,
          a_combinar = excluded.a_combinar, com_idv = excluded.com_idv
-       WHERE leads.origem = 'site'`
+       WHERE leads.origem = 'site' AND leads.status = 'novo'`
     ).bind(
       id, agora, agora, comum.nome, comum.whatsapp, comum.data_casamento, comum.local,
       comum.convidados, comum.obs, JSON.stringify(itens), total, aCombinar, comIdv,
