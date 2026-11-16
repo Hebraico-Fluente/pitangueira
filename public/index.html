@@ -35,6 +35,10 @@
     --f-texto: "Montserrat", system-ui, sans-serif;
 
     --raio: 16px;
+    /* Curvas de animação */
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
+    --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
     --sombra: 0 14px 34px -16px rgba(126, 28, 53, .35);
   }
   * { box-sizing: border-box; }
@@ -69,14 +73,79 @@
 
   /* ---------- Hero (laranja, coração e estrelas, como no Instagram) ---------- */
   .hero { background: var(--laranja); color: #fff; position: relative; overflow: hidden; padding: 96px 0 104px; text-align: center; isolation: isolate; }
-  .hero .coracao { position: absolute; z-index: -1; width: min(760px, 120vw); left: 50%; top: 50%; transform: translate(-50%, -48%) rotate(-8deg); fill: var(--laranja-escuro); opacity: .8; }
+  .hero .coracao { position: absolute; z-index: -1; width: min(760px, 120vw); left: 50%; top: 50%; transform: translate(-50%, -48%) rotate(-8deg); fill: var(--laranja-escuro); opacity: .8; animation: bate 3.2s var(--ease-in-out) infinite; }
+  @keyframes bate {
+    0%, 100% { transform: translate(-50%, -48%) rotate(-8deg) scale(1); }
+    12% { transform: translate(-50%, -48%) rotate(-8deg) scale(1.035); }
+    24% { transform: translate(-50%, -48%) rotate(-8deg) scale(1); }
+    36% { transform: translate(-50%, -48%) rotate(-8deg) scale(1.025); }
+  }
   .estrela { position: absolute; z-index: -1; fill: var(--pessego); opacity: .75; }
-  .hero .e1 { width: 220px; left: -60px; top: 30px; transform: rotate(12deg); }
-  .hero .e2 { width: 260px; right: -70px; bottom: -40px; transform: rotate(-10deg); }
-  .hero .e3 { width: 70px; right: 14%; top: 50px; fill: var(--amarelo); opacity: .9; }
-  .hero .icone-hero { width: 84px; margin: 0 auto 18px; }
+  .hero .estrela { transform: rotate(var(--r, 0deg)); animation: flutua var(--t, 9s) var(--ease-in-out) infinite alternate; }
+  @keyframes flutua {
+    from { transform: translateY(0) rotate(var(--r, 0deg)); }
+    to { transform: translateY(-18px) rotate(calc(var(--r, 0deg) + 16deg)); }
+  }
+  .hero .e1 { width: 220px; left: -60px; top: 30px; --r: 12deg; }
+  .hero .e2 { width: 260px; right: -70px; bottom: -40px; --r: -10deg; --t: 11s; }
+  .hero .e3 { width: 70px; right: 14%; top: 50px; fill: var(--amarelo); opacity: .9; animation: brilha 2.6s var(--ease-in-out) infinite; }
+  .hero .e4 { width: 34px; left: 16%; bottom: 90px; fill: var(--amarelo); opacity: .9; animation: brilha 3.1s var(--ease-in-out) .8s infinite; }
+  .hero .e5 { width: 22px; right: 26%; bottom: 60px; fill: #fff; opacity: .8; animation: brilha 2.2s var(--ease-in-out) 1.4s infinite; }
+  @keyframes brilha {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: .9; }
+    50% { transform: scale(.6) rotate(45deg); opacity: .45; }
+  }
+  .hero .icone-hero { width: 84px; margin: 0 auto 18px; transform-origin: 50% 100%; }
+  .hero .icone-hero.entra { animation: entra 800ms var(--ease-out) 100ms backwards, balanca 4s var(--ease-in-out) 1.2s infinite alternate; }
+  @keyframes balanca { from { transform: rotate(-3deg); } to { transform: rotate(3deg); } }
+
+  /* Entrada do hero, em cascata */
+  .entra { animation: entra 800ms var(--ease-out) backwards; animation-delay: calc(100ms + var(--d, 0) * 110ms); }
+  @keyframes entra { from { opacity: 0; transform: translateY(22px); } }
+  /* "cara de vocês" se escrevendo */
+  .hero h1 .script { clip-path: inset(-20% 0 -20% 0); animation: escreve 1300ms var(--ease-in-out) 650ms backwards; }
+  @keyframes escreve { from { clip-path: inset(-20% 100% -20% 0); } }
+
+  /* Faixa de serviços rolando */
+  .faixa-servicos { background: var(--bordo); color: #fff; overflow: hidden; padding: 16px 0; border-top: 3px solid var(--amarelo); }
+  .faixa-servicos .trilho { display: flex; width: max-content; animation: rola 38s linear infinite; }
+  .faixa-servicos:hover .trilho { animation-play-state: paused; }
+  .faixa-servicos span { font-family: var(--f-titulo); font-size: 1.35rem; white-space: nowrap; padding: 0 18px; display: inline-flex; align-items: center; gap: 36px; }
+  .faixa-servicos span::after { content: "✦"; color: var(--amarelo); font-size: 1rem; }
+  .faixa-servicos span:nth-child(even) { font-family: var(--f-script); font-size: 1.9rem; color: var(--pessego); }
+  @keyframes rola { to { transform: translateX(-50%); } }
+
+  /* Revelação ao rolar (só quando o JavaScript está ativo) */
+  .js-anima .revelar:not(.visivel) { opacity: 0; }
+  .js-anima .revelar.visivel { animation: sobe 750ms var(--ease-out) backwards; animation-delay: calc(var(--i, 0) * 70ms); }
+  @keyframes sobe { from { opacity: 0; transform: translateY(26px); } }
+  .js-anima .pessoa.revelar.visivel { animation-name: gira-entra; }
+  @keyframes gira-entra { from { opacity: 0; transform: translateY(30px) rotate(-3deg) scale(.96); } }
+
+  /* Sublinhado desenhado nas palavras manuscritas */
+  .sublinhado { position: relative; display: inline-block; }
+  .sublinhado svg { position: absolute; left: 2%; bottom: -.05em; width: 96%; height: .32em; overflow: visible; pointer-events: none; }
+  .sublinhado path { fill: none; stroke: var(--amarelo); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .visivel .sublinhado path, .sublinhado.sempre path { animation: desenha 1000ms var(--ease-in-out) 450ms forwards; }
+  @keyframes desenha { to { stroke-dashoffset: 0; } }
+
+  /* Como funciona */
+  #como { background: var(--creme); overflow: hidden; }
+  .passos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; position: relative; counter-reset: passo; }
+  @media (max-width: 860px) { .passos { grid-template-columns: 1fr; } }
+  .passo { background: var(--branco); border-radius: 24px; padding: 30px 26px 26px; position: relative; box-shadow: var(--sombra); border: 1.5px solid var(--linha); }
+  .passo .num { position: absolute; top: -26px; left: 22px; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; font-family: var(--f-titulo); font-size: 1.7rem; color: #fff; background: var(--cor, var(--laranja)); box-shadow: 0 8px 18px -8px var(--cor, var(--laranja)); }
+  .passo h3 { font-size: 1.55rem; color: var(--bordo); margin: 14px 0 8px; }
+  .passo p { margin: 0; color: var(--suave); font-size: .95rem; }
+  .passo .ilustra { display: block; width: 54px; height: 54px; margin: -8px 0 0 auto; color: var(--cor, var(--laranja)); }
+  @media (hover: hover) and (pointer: fine) {
+    .passo { transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out); }
+    .passo:hover { transform: translateY(-6px) rotate(-.6deg); }
+    .passo:hover .ilustra { animation: balanca 600ms var(--ease-in-out) 2 alternate; }
+  }
   .etiqueta { display: inline-block; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; margin-bottom: 14px; }
   .hero .etiqueta { color: var(--bordo); background: var(--pessego); padding: 6px 14px; border-radius: 999px; }
+  @media (max-width: 480px) { .hero .etiqueta { font-size: .66rem; letter-spacing: .12em; } }
   .hero h1 { font-size: clamp(2.8rem, 7vw, 5.2rem); max-width: 14ch; margin: 0 auto; }
   .hero h1 .script { display: block; font-size: 1.15em; line-height: .9; margin-top: .05em; }
   .hero p { max-width: 52ch; margin: 22px auto 34px; font-size: 1.06rem; }
@@ -110,6 +179,14 @@
   /* Foto recortada (adesivo com contorno bordô), saindo um pouco do círculo como nos posts */
   .pessoa .foto img { position: absolute; left: -8%; bottom: -4%; width: 116%; height: 125%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 6px 10px rgba(59, 22, 34, .3)); transform: rotate(-4deg); }
   .pessoa:nth-child(2) .foto img { transform: rotate(4deg); }
+  @media (hover: hover) and (pointer: fine) {
+    .pessoa:hover .foto img { animation: mexe 650ms var(--ease-in-out); }
+  }
+  @keyframes mexe {
+    25% { transform: rotate(-9deg) scale(1.05); }
+    55% { transform: rotate(6deg) scale(1.05); }
+    80% { transform: rotate(-2deg); }
+  }
   .pessoa .foto:has(img) { background: var(--pessego); }
   .pessoa .foto span { font-family: var(--f-script); font-size: 2.4rem; color: #fff; }
   .pessoa h3 { font-family: var(--f-script); font-size: 2.3rem; line-height: 1; }
@@ -128,7 +205,15 @@
   .itens { display: grid; grid-template-columns: repeat(auto-fill, minmax(215px, 1fr)); gap: 12px; }
 
   .item { background: var(--branco); border: 1.5px solid var(--linha); border-radius: var(--raio); padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 6px; transition: border-color .2s, box-shadow .2s, transform .2s; position: relative; }
-  .item:hover { transform: translateY(-2px); }
+  @media (hover: hover) and (pointer: fine) {
+    .item:hover { transform: translateY(-3px); box-shadow: var(--sombra); }
+  }
+  .item.selecionado::before { animation: pop 380ms var(--ease-pop); }
+  @keyframes pop { from { transform: scale(0) rotate(-45deg); } }
+  .btn-add { transition: background .2s, color .2s, border-color .2s, transform 120ms var(--ease-out); }
+  .btn-add:active { transform: scale(.94); }
+  .item.acabou-de-entrar { animation: destaca 450ms var(--ease-out); }
+  @keyframes destaca { 40% { transform: scale(1.025); } }
   .item.selecionado { border-color: var(--bordo); box-shadow: 0 0 0 1px var(--bordo), var(--sombra); }
   .item.selecionado::before { content: "✓"; position: absolute; top: -10px; right: -8px; width: 26px; height: 26px; border-radius: 50%; background: var(--bordo); color: #fff; font-size: .8rem; display: grid; place-items: center; }
   .item h4 { margin: 0; font-size: 1rem; font-weight: 600; }
@@ -176,6 +261,9 @@
   .lista-resumo li button:hover { color: var(--bordo); }
   .total { display: flex; justify-content: space-between; align-items: baseline; margin: 16px 0 4px; }
   .total span:first-child { color: var(--suave); font-size: .9rem; }
+  .total strong { display: inline-block; transform-origin: right center; }
+  .total strong.pulsa, .barra-mobile.pulsa { animation: pulsa 420ms var(--ease-out); }
+  @keyframes pulsa { 35% { transform: scale(1.08); } }
   .total strong { font-size: 1.9rem; font-family: var(--f-titulo); font-weight: 400; color: var(--bordo); font-variant-numeric: tabular-nums; }
   .aviso { font-size: .78rem; color: var(--suave); margin: 0 0 18px; }
   #total-obs { margin: -2px 0 8px; text-align: right; color: var(--bordo); font-weight: 500; }
@@ -223,6 +311,10 @@
   .ph::after { content: ""; position: absolute; width: 60%; aspect-ratio: 1; right: -15%; bottom: -15%; background: url("marca/icone-branco.svg") center / contain no-repeat; opacity: .18; }
 
   dialog.galeria { width: min(1000px, 100% - 24px); max-height: 92vh; border: 0; border-radius: 22px; padding: 0; background: var(--creme); color: var(--texto); }
+  dialog.galeria[open] { animation: abre 320ms var(--ease-out); }
+  dialog.galeria[open]::backdrop { animation: escurece 320ms var(--ease-out); }
+  @keyframes abre { from { opacity: 0; transform: translateY(16px) scale(.97); } }
+  @keyframes escurece { from { opacity: 0; } }
   dialog.galeria::backdrop { background: rgba(59, 22, 34, .7); }
   .galeria .cab { position: sticky; top: 0; background: var(--bordo); color: #fff; padding: 20px 24px 16px; display: flex; justify-content: space-between; gap: 16px; z-index: 1; }
   .galeria .cab h3 { font-family: var(--f-script); font-size: 2.6rem; line-height: 1; }
@@ -248,7 +340,11 @@
   footer { background: var(--bordo-escuro); color: #F3C9D1; text-align: center; font-size: .82rem; padding: 26px 0; }
   footer img { height: 54px; margin: 0 auto 10px; }
 
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+    .js-anima .revelar:not(.visivel) { opacity: 1; }
+    .sublinhado path { stroke-dashoffset: 0; }
+  }
 </style>
 </head>
 <body>
@@ -277,21 +373,25 @@
     <svg viewBox="0 0 200 200" class="estrela e1" aria-hidden="true"><use href="#estrela"/></svg>
     <svg viewBox="0 0 200 200" class="estrela e2" aria-hidden="true"><use href="#estrela"/></svg>
     <svg viewBox="0 0 200 200" class="estrela e3" aria-hidden="true"><use href="#estrela"/></svg>
+    <svg viewBox="0 0 200 200" class="estrela e4" aria-hidden="true"><use href="#estrela"/></svg>
+    <svg viewBox="0 0 200 200" class="estrela e5" aria-hidden="true"><use href="#estrela"/></svg>
     <div class="container">
-      <img class="icone-hero" src="marca/icone-branco.svg" alt="" aria-hidden="true">
-      <span class="etiqueta">Design & papelaria para casamentos</span>
-      <h1>Seu casamento com a <span class="script">cara de vocês</span></h1>
-      <p>Criamos a identidade visual e a papelaria do seu grande dia, sem moldes prontos. Monte seu orçamento aqui e envie direto para o nosso WhatsApp.</p>
-      <div class="botoes">
+      <img class="icone-hero entra" src="marca/icone-branco.svg" alt="" aria-hidden="true">
+      <span class="etiqueta entra" style="--d:1">Design & papelaria para casamentos</span>
+      <h1 class="entra" style="--d:2">Seu casamento com a <span class="script">cara de vocês</span></h1>
+      <p class="entra" style="--d:4">Criamos a identidade visual e a papelaria do seu grande dia, sem moldes prontos. Monte seu orçamento aqui e envie direto para o nosso WhatsApp.</p>
+      <div class="botoes entra" style="--d:5">
         <a class="btn btn-bordo" href="#orcamento">Montar meu orçamento</a>
         <a class="btn btn-branco" href="#portfolio">Ver portfólio</a>
       </div>
     </div>
   </section>
 
+  <div class="faixa-servicos" aria-hidden="true"><div class="trilho"><span>Identidade visual</span><span>Convites</span><span>Save the date</span><span>Website do casamento</span><span>Papelaria do dia</span><span>Leques</span><span>Rótulos de vinho</span><span>Ilustrações</span><span>Caderno de votos</span><span>Menus</span><span>Lembrancinhas</span><span>Porta aliança</span><span>Identidade visual</span><span>Convites</span><span>Save the date</span><span>Website do casamento</span><span>Papelaria do dia</span><span>Leques</span><span>Rótulos de vinho</span><span>Ilustrações</span><span>Caderno de votos</span><span>Menus</span><span>Lembrancinhas</span><span>Porta aliança</span></div></div>
+
   <section class="bloco" id="sobre">
     <div class="container sobre">
-      <div class="sobre-texto">
+      <div class="sobre-texto revelar">
         <span class="etiqueta" style="color: var(--laranja-escuro)">Quem somos</span>
         <p class="destaque">Duas designers, duas cabeças cheias de ideias e uma vontade enorme de transformar <span class="marca-texto">histórias de amor</span> em coisas que possam ser vistas, tocadas e lembradas.</p>
         <p>A gente acredita que casamento não precisa ter cara de “mais um casamento”. Ele pode ter personalidade, humor, cor, referências inesperadas e, principalmente, ter a cara de quem está celebrando.</p>
@@ -299,11 +399,11 @@
       </div>
       <div class="duo">
         <!-- Fotos: public/fotos/petala.png e public/fotos/isa.png. Se faltar o arquivo, aparece a inicial. -->
-        <div class="pessoa">
+        <div class="pessoa revelar" style="--i:1">
           <div class="foto"><span>P</span><img src="fotos/petala.png" alt="Pétala" onerror="this.remove()"></div>
           <div><h3>Pétala</h3><p>Designer e artista. Mãe de três gatos, dois cachorros e 80 plantas, curte bons drinks em boas festas e ama ouvir uma história de amor.</p></div>
         </div>
-        <div class="pessoa">
+        <div class="pessoa revelar" style="--i:3">
           <div class="foto"><span>I</span><img src="fotos/isa.png" alt="Isa" onerror="this.remove()"></div>
           <div><h3>Isa</h3><p>Arquiteta e designer. Mãe de três gatas, faz um brownie incrível e ama o amor!</p></div>
         </div>
@@ -311,10 +411,36 @@
     </div>
   </section>
 
+  <section class="bloco" id="como">
+    <div class="container">
+      <div class="titulo-secao revelar">
+        <h2>Como <span class="script sublinhado">funciona<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 7 C 25 2, 60 2, 98 6"/></svg></span></h2>
+        <p>Do primeiro clique ao grande dia, em três passos.</p>
+      </div>
+      <div class="passos">
+        <article class="passo revelar" style="--i:0; --cor: var(--laranja)">
+          <span class="num">1</span><svg class="ilustra" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="6" width="30" height="36" rx="5"/><path d="M16 17l3 3 6-6M16 29l3 3 6-6M29 18h4M29 30h4"/></svg>
+          <h3>Escolham o que é a cara de vocês</h3>
+          <p>Montem o orçamento aqui no site com os itens que quiserem e vejam o valor na hora.</p>
+        </article>
+        <article class="passo revelar" style="--i:2; --cor: var(--coral)">
+          <span class="num">2</span><svg class="ilustra" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 40l3-9a16 16 0 1 1 6 6z"/><path d="M18 21c1 5 4 8 9 9l2-3-4-2-2 2c-2-1-3-2-4-4l2-2-2-4z"/></svg>
+          <h3>Enviem pelo WhatsApp</h3>
+          <p>O pedido chega pronto pra gente, com tudo que vocês escolheram. Sem formulário chato.</p>
+        </article>
+        <article class="passo revelar" style="--i:4; --cor: var(--bordo)">
+          <span class="num">3</span><svg class="ilustra" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 40C12 31 6 25 6 17a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 8-6 14-18 23z"/><path d="M31 8l1.5-4M36 11l3.5-2.5M38 17h4"/></svg>
+          <h3>A gente cria junto</h3>
+          <p>Ouvimos a história de vocês e desenhamos cada detalhe, sem moldes prontos.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
   <section class="bloco" id="orcamento">
     <div class="container">
-      <div class="titulo-secao">
-        <h2>Monte seu <span class="script">orçamento</span></h2>
+      <div class="titulo-secao revelar">
+        <h2>Monte seu <span class="script sublinhado">orçamento<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 7 C 25 2, 60 2, 98 6"/></svg></span></h2>
         <p>Escolha os itens que vocês querem e veja o valor na hora. Depois é só enviar pelo WhatsApp.</p>
         <p class="nota-tabela">Valores da <strong>arte digital</strong>, praticados quando a <strong>Identidade Visual</strong> é contratada. Impressão e produção não inclusas. Para projetos sem identidade visual, consulte orçamento.</p>
       </div>
@@ -372,8 +498,8 @@
 
   <section class="bloco" id="portfolio">
     <div class="container">
-      <div class="titulo-secao">
-        <h2>Histórias que já <span class="script">desenhamos</span></h2>
+      <div class="titulo-secao revelar">
+        <h2>Histórias que já <span class="script sublinhado">desenhamos<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 7 C 25 2, 60 2, 98 6"/></svg></span></h2>
         <p>Alguns dos casamentos que tivemos a alegria de criar. Toque em um projeto para ver as fotos.</p>
       </div>
       <div class="port-grid" id="port-grid"></div>
@@ -384,7 +510,7 @@
     <svg viewBox="0 0 200 200" class="estrela e1" aria-hidden="true"><use href="#estrela"/></svg>
     <svg viewBox="0 0 200 200" class="estrela e2" aria-hidden="true"><use href="#estrela"/></svg>
     <div class="container">
-      <h2>Agora, conta pra gente a sua <span class="script">História de Amor</span></h2>
+      <h2 class="revelar">Agora, conta pra gente a sua <span class="script">História de Amor</span></h2>
       <p>Tem alguma dúvida ou quer algo que não está na lista? Chama a gente, vamos adorar conversar.</p>
       <div class="botoes">
         <a class="btn btn-laranja" id="link-whats" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a>
@@ -566,7 +692,10 @@ function atualizarCartao(el) {
   btn.setAttribute("aria-label", (qtd ? "Remover " : "Adicionar ") + s.nome);
   btn.onclick = () => {
     if (selecao[s.id]) delete selecao[s.id];
-    else selecao[s.id] = minimo(s);
+    else {
+      selecao[s.id] = minimo(s);
+      if (!semMovimento) { el.classList.remove("acabou-de-entrar"); void el.offsetWidth; el.classList.add("acabou-de-entrar"); }
+    }
     mudou(s.id);
   };
   acoes.appendChild(btn);
@@ -607,6 +736,54 @@ function linhasSelecionadas() {
   });
 }
 
+/* ---------- Animações ---------- */
+const semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let totalAnterior = null, totalMostrado = 0, animTotal;
+
+function pulsar(el) {
+  if (semMovimento || !el) return;
+  el.classList.remove("pulsa");
+  void el.offsetWidth; // reinicia a animação
+  el.classList.add("pulsa");
+}
+
+// O total "sobe contando" até o novo valor
+function animarTotal(valor) {
+  const el = $("#total");
+  cancelAnimationFrame(animTotal);
+  if (semMovimento || totalAnterior === null) { totalMostrado = valor; el.textContent = reais(valor); return; }
+  if (valor !== totalMostrado) pulsar(el);
+  const de = totalMostrado, inicio = performance.now(), dur = 550;
+  const passo = agora => {
+    const t = Math.min(1, (agora - inicio) / dur);
+    const e = 1 - Math.pow(1 - t, 3);
+    totalMostrado = de + (valor - de) * e;
+    el.textContent = reais(t < 1 ? Math.round(totalMostrado) : valor);
+    if (t < 1) animTotal = requestAnimationFrame(passo); else totalMostrado = valor;
+  };
+  animTotal = requestAnimationFrame(passo);
+}
+
+// Revela elementos ao rolar a página
+document.documentElement.classList.add("js-anima");
+const observador = "IntersectionObserver" in window ? new IntersectionObserver(entradas => {
+  for (const e of entradas) {
+    if (!e.isIntersecting) continue;
+    const el = e.target;
+    el.classList.add("visivel");
+    observador.unobserve(el);
+    // Terminada a entrada, libera o elemento para as outras animações (hover, destaque)
+    const fim = ev => { if (ev.target !== el) return; el.classList.remove("revelar"); el.removeEventListener("animationend", fim); };
+    el.addEventListener("animationend", fim);
+  }
+}, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }) : null;
+function revelar(el, i = 0) {
+  if (!observador) return;
+  el.classList.add("revelar");
+  el.style.setProperty("--i", i);
+  observador.observe(el);
+}
+
 function atualizarResumo() {
   const linhas = linhasSelecionadas();
   const total = linhas.reduce((t, l) => t + (l.subtotal || 0), 0);
@@ -630,7 +807,7 @@ function atualizarResumo() {
     box.replaceChildren(ul);
   }
 
-  $("#total").textContent = reais(total);
+  animarTotal(total);
   $("#total-obs").hidden = !aCombinar;
   $("#aviso-idv").hidden = !linhas.length || !!selecao[ID_IDENTIDADE];
   $("#enviar").setAttribute("aria-disabled", linhas.length ? "false" : "true");
@@ -640,6 +817,8 @@ function atualizarResumo() {
   const n = linhas.length;
   $("#barra-qtd").textContent = `${n} ${n === 1 ? "item" : "itens"}`;
   $("#barra-total").textContent = `${reais(total)} · Ver pedido`;
+  if (n && totalAnterior !== null && total !== totalAnterior) pulsar($("#barra-mobile"));
+  totalAnterior = total;
   $("#barra-mobile").classList.toggle("visivel", n > 0);
   document.body.classList.toggle("com-barra", n > 0);
   if (!n) fecharResumo();
@@ -782,8 +961,12 @@ $("#link-whats").href = `https://wa.me/${WHATSAPP}`;
 $("#link-insta").href = INSTAGRAM;
 $("#ano").textContent = new Date().getFullYear();
 montarCatalogo();
+document.querySelectorAll("#catalogo .cab-cat").forEach(el => revelar(el));
+document.querySelectorAll("#catalogo .itens").forEach(g => [...g.children].forEach((el, i) => revelar(el, i % 4)));
 atualizarResumo();
 montarPortfolio();
+document.querySelectorAll("#port-grid .projeto").forEach((el, i) => revelar(el, i % 3 * 2));
+document.querySelectorAll(".revelar:not(.visivel)").forEach(el => observador ? observador.observe(el) : el.classList.add("visivel"));
 </script>
 </body>
 </html>
