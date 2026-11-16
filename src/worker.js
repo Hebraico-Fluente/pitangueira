@@ -17,6 +17,14 @@ function despachar(modulo, request, env, params = {}) {
 export default {
   async fetch(request, env) {
     const { pathname } = new URL(request.url);
+    // Diagnóstico: mostra só os NOMES das configurações (nunca os valores).
+    if (pathname === "/api/status") {
+      return new Response(JSON.stringify({
+        banco: !!env.DB,
+        senha_configurada: !!env.PAINEL_SENHA,
+        variaveis: Object.keys(env).filter(k => k !== "DB" && k !== "ASSETS"),
+      }), { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
+    }
     if (pathname === "/api/leads" || pathname === "/api/leads/") return despachar(lista, request, env);
     const m = pathname.match(/^\/api\/leads\/([^/]+)\/?$/);
     if (m) return despachar(item, request, env, { id: decodeURIComponent(m[1]) });
