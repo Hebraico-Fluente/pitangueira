@@ -13,5 +13,7 @@
   "d1_databases": [
     { "binding": "DB", "database_name": "pitangueira-leads" }
   ],
+  // Mantém as variáveis criadas no painel da Cloudflare (ex.: PAINEL_SENHA) a cada deploy.
+  "keep_vars": true,
   "observability": { "enabled": true }
 }
