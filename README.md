@@ -43,6 +43,7 @@ Tudo que muda no dia a dia fica no começo do `<script>` em `public/index.html`,
 | Projetos do portfólio | `const PORTFOLIO` |
 | Perguntas frequentes | `const DUVIDAS` |
 | Depoimentos (a seção aparece quando houver algum) | `const DEPOIMENTOS` |
+| Vídeos do Instagram (seção de cinema) | `const VIDEOS_INSTAGRAM` (cole o link do post ou reel) |
 
 Fotos:
 - Pétala e Isa: `public/fotos/petala.webp` e `public/fotos/isa.webp`

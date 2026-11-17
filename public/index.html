@@ -354,6 +354,66 @@
   .fotos .ph { aspect-ratio: 3 / 4; }
   .fotos .ph:nth-child(3n+2) { aspect-ratio: 1; }
 
+  /* ---------- Cinema: vídeos do Instagram ---------- */
+  .cinema { position: relative; background: #240C14; color: #fff; overflow: hidden; isolation: isolate; padding: 0; }
+  /* Grão de filme */
+  .cinema::before { content: ""; position: absolute; inset: -50%; z-index: -1; opacity: .09; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+    animation: grao 1.2s steps(6) infinite; }
+  @keyframes grao {
+    0% { transform: translate(0, 0); } 20% { transform: translate(-3%, 2%); } 40% { transform: translate(2%, -3%); }
+    60% { transform: translate(-2%, -1%); } 80% { transform: translate(3%, 3%); } 100% { transform: translate(0, 0); }
+  }
+  /* Luz quente passando, como vazamento de luz de câmera analógica */
+  .cinema .luz { position: absolute; z-index: -1; width: 70vw; height: 70vw; max-width: 900px; max-height: 900px; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(255, 124, 56, .32), rgba(173, 42, 73, .18) 40%, transparent 68%); filter: blur(10px);
+    top: -20%; left: -25%; animation: vaza 18s var(--ease-in-out) infinite alternate; }
+  @keyframes vaza { to { transform: translate(70%, 35%) scale(1.15); } }
+  /* Faixas pretas (formato cinema) */
+  .cinema .tarja { height: 34px; background: #0E0408; }
+  .cinema .conteudo { padding: 64px 0 56px; }
+  .cinema .titulo-secao h2 { color: #fff; }
+  .cinema .titulo-secao h2 .script { color: var(--pessego); }
+  .cinema .titulo-secao p { color: #E9CFC6; }
+  .cinema .etiqueta { color: var(--amarelo); letter-spacing: .3em; }
+  .cinema .claquete { display: inline-flex; align-items: center; gap: 10px; }
+  .cinema .claquete::before, .cinema .claquete::after { content: ""; width: 34px; height: 1px; background: var(--amarelo); opacity: .6; }
+
+  /* Película com os furinhos em cima e embaixo */
+  .pelicula { position: relative; background: #0E0408; padding: 30px 0; }
+  .pelicula::before, .pelicula::after { content: ""; position: absolute; left: 0; right: 0; height: 12px;
+    background: repeating-linear-gradient(90deg, transparent 0 14px, rgba(255, 247, 238, .85) 14px 30px, transparent 30px 44px); border-radius: 3px; opacity: .85;
+    -webkit-mask: linear-gradient(#000 0 0); }
+  .pelicula::before { top: 9px; }
+  .pelicula::after { bottom: 9px; }
+  .rolo { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 max(20px, calc((100vw - 1160px) / 2));
+    padding: 0 max(20px, calc((100vw - 1160px) / 2)); scrollbar-width: none; cursor: grab; }
+  .rolo::-webkit-scrollbar { display: none; }
+  .rolo a, .rolo img { -webkit-user-drag: none; }
+  .rolo.arrastando { cursor: grabbing; scroll-snap-type: none; user-select: none; }
+  .quadro-video { flex: 0 0 min(340px, 82vw); scroll-snap-align: start; border-radius: 16px; overflow: hidden; background: #1A070E;
+    box-shadow: 0 0 0 1px rgba(255, 201, 168, .14), 0 24px 50px -24px #000; transition: transform 400ms var(--ease-out), box-shadow 400ms var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) {
+    .quadro-video:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 0 0 2px var(--laranja), 0 30px 60px -24px #000; }
+  }
+  .quadro-video .instagram-media { margin: 0 !important; min-width: 0 !important; width: 100% !important; max-width: 100% !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+  .quadro-video iframe { width: 100% !important; min-width: 0 !important; border-radius: 0 !important; }
+  /* Capa de reserva enquanto o vídeo carrega (ou se o Instagram estiver bloqueado) */
+  .capa-video { aspect-ratio: 9 / 14; display: grid; place-content: center; justify-items: center; gap: 14px; text-align: center; padding: 24px; text-decoration: none; color: #fff;
+    background: radial-gradient(circle at 30% 20%, rgba(255, 124, 56, .45), transparent 55%), radial-gradient(circle at 80% 90%, rgba(173, 42, 73, .6), transparent 60%), #2A0D17; }
+  .capa-video .play { width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .14); border: 1.5px solid rgba(255, 255, 255, .5); backdrop-filter: blur(6px); transition: transform 300ms var(--ease-out), background 200ms ease; }
+  .capa-video .play svg { width: 26px; margin-left: 4px; fill: #fff; }
+  .capa-video:hover .play { transform: scale(1.08); background: var(--laranja); }
+  .capa-video strong { font-family: var(--f-script); font-weight: 400; font-size: 2.1rem; line-height: 1; color: var(--pessego); }
+  .capa-video span { font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+  .controles-rolo { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 26px; }
+  .controles-rolo .setas { display: flex; gap: 10px; }
+  .controles-rolo button { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, .4); background: transparent; color: #fff; font-size: 1.3rem; transition: background 200ms ease, border-color 200ms ease, transform 120ms var(--ease-out); }
+  .controles-rolo button:hover { background: var(--laranja); border-color: var(--laranja); color: var(--texto); }
+  .controles-rolo button:active { transform: scale(.94); }
+  .controles-rolo button:disabled { opacity: .35; pointer-events: none; }
+  .controles-rolo a { color: var(--pessego); font-weight: 600; font-size: .9rem; }
+
   /* ---------- Depoimentos ---------- */
   #depoimentos { background: var(--areia); }
   .depoimentos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
@@ -409,6 +469,7 @@
       <a href="#sobre" class="so-desktop">Quem somos</a>
       <a href="#orcamento">Orçamento</a>
       <a href="#portfolio">Portfólio</a>
+      <a href="#filmes" class="so-desktop">Vídeos</a>
       <a href="#duvidas" class="so-desktop">Dúvidas</a>
       <a href="#contato" class="so-desktop">Contato</a>
     </nav>
@@ -554,6 +615,31 @@
       </div>
       <div class="port-grid" id="port-grid"></div>
     </div>
+  </section>
+
+  <section class="cinema" id="filmes" aria-labelledby="filmes-titulo">
+    <div class="tarja" aria-hidden="true"></div>
+    <div class="luz" aria-hidden="true"></div>
+    <div class="conteudo">
+      <div class="container">
+        <div class="titulo-secao revelar">
+          <span class="etiqueta claquete">Cena a cena</span>
+          <h2 id="filmes-titulo">Histórias em <span class="script sublinhado">movimento<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 7 C 25 2, 60 2, 98 6"/></svg></span></h2>
+          <p>Bastidores, papelaria saindo do forno e os detalhes que a gente ama criar.</p>
+        </div>
+      </div>
+      <div class="pelicula revelar">
+        <div class="rolo" id="rolo" tabindex="0" aria-label="Vídeos da Pitangueira no Instagram"></div>
+      </div>
+      <div class="container controles-rolo">
+        <a id="link-insta-filmes" href="#" target="_blank" rel="noopener">Ver mais no Instagram →</a>
+        <div class="setas">
+          <button type="button" id="rolo-voltar" aria-label="Vídeo anterior">←</button>
+          <button type="button" id="rolo-avancar" aria-label="Próximo vídeo">→</button>
+        </div>
+      </div>
+    </div>
+    <div class="tarja" aria-hidden="true"></div>
   </section>
 
   <section class="bloco" id="depoimentos" hidden>
@@ -718,6 +804,16 @@ const DUVIDAS = [
 
 // Depoimentos de casais. A seção só aparece no site quando houver pelo menos um.
 // Exemplo: { texto: "A papelaria ficou a nossa cara!", casal: "Ana & Pedro" },
+// Vídeos do Instagram mostrados na seção de cinema (links de posts ou reels).
+const VIDEOS_INSTAGRAM = [
+  "https://www.instagram.com/p/DfvVcZfsLfD/",
+  "https://www.instagram.com/p/DfnQ5QlO4F_/",
+  "https://www.instagram.com/p/DeCPLgGR_Sd/",
+  "https://www.instagram.com/p/DexC8GyP4Lc/",
+  "https://www.instagram.com/p/DdCoytxvXQc/",
+  "https://www.instagram.com/p/DeHhZ8TxNX-/",
+];
+
 const DEPOIMENTOS = [
 ];
 
@@ -851,6 +947,84 @@ function atualizarAtalhos() {
     badge.hidden = !n;
     badge.textContent = n;
   });
+}
+
+/* ---------- Cinema (vídeos do Instagram) ---------- */
+function montarCinema() {
+  const rolo = $("#rolo");
+  const secao = $("#filmes");
+  const links = VIDEOS_INSTAGRAM.map(u => u.split("?")[0].replace(/\/?$/, "/")).filter(u => /instagram\.com\/(p|reel)\//.test(u));
+  if (!links.length) { secao.hidden = true; return; }
+  $("#link-insta-filmes").href = INSTAGRAM;
+  const play = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z"/></svg>';
+  links.forEach((url, i) => {
+    const q = document.createElement("div");
+    q.className = "quadro-video";
+    // Capa de reserva: vira o vídeo quando o Instagram carrega; se não carregar, leva ao post.
+    q.innerHTML = `<blockquote class="instagram-media" data-instgrm-permalink="${url}" data-instgrm-version="14">
+        <a class="capa-video" href="${url}" target="_blank" rel="noopener" draggable="false">
+          <div class="play">${play}</div><strong>Cena ${i + 1}</strong><span>Assistir no Instagram</span>
+        </a></blockquote>`;
+    rolo.appendChild(q);
+  });
+
+  // Carrega o player do Instagram só quando a seção estiver chegando na tela
+  let carregado = false;
+  const carregar = () => {
+    if (carregado) return;
+    carregado = true;
+    if (window.instgrm) { window.instgrm.Embeds.process(); return; }
+    const sc = document.createElement("script");
+    sc.async = true;
+    sc.src = "https://www.instagram.com/embed.js";
+    document.body.appendChild(sc);
+  };
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(e => { if (e.some(x => x.isIntersecting)) { carregar(); io.disconnect(); } }, { rootMargin: "800px 0px" });
+    io.observe(secao);
+  } else carregar();
+
+  // Setas
+  const voltar = $("#rolo-voltar"), avancar = $("#rolo-avancar");
+  const passo = () => (rolo.querySelector(".quadro-video")?.offsetWidth || 340) + 22;
+  voltar.onclick = () => rolo.scrollBy({ left: -passo(), behavior: semMovimento ? "auto" : "smooth" });
+  avancar.onclick = () => rolo.scrollBy({ left: passo(), behavior: semMovimento ? "auto" : "smooth" });
+  const atualizarSetas = () => {
+    voltar.disabled = rolo.scrollLeft < 8;
+    avancar.disabled = rolo.scrollLeft + rolo.clientWidth > rolo.scrollWidth - 8;
+  };
+  rolo.addEventListener("scroll", atualizarSetas, { passive: true });
+  window.addEventListener("resize", atualizarSetas);
+  setTimeout(atualizarSetas, 300);
+  rolo.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight") { e.preventDefault(); avancar.click(); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); voltar.click(); }
+  });
+
+  // Arrastar com o mouse (no celular o dedo já rola naturalmente)
+  let inicioX = 0, inicioScroll = 0, arrastou = false, segurando = false;
+  rolo.addEventListener("pointerdown", e => {
+    if (e.pointerType !== "mouse") return;
+    segurando = true; arrastou = false; inicioX = e.clientX; inicioScroll = rolo.scrollLeft;
+  });
+  window.addEventListener("pointermove", e => {
+    if (!segurando) return;
+    const dx = e.clientX - inicioX;
+    if (Math.abs(dx) > 5) { arrastou = true; rolo.classList.add("arrastando"); }
+    if (arrastou) rolo.scrollLeft = inicioScroll - dx;
+  });
+  window.addEventListener("pointerup", () => {
+    if (!segurando) return;
+    segurando = false;
+    rolo.classList.remove("arrastando");
+    if (arrastou) {
+      // Encaixa no vídeo mais próximo
+      const p = passo();
+      rolo.scrollTo({ left: Math.round(rolo.scrollLeft / p) * p, behavior: semMovimento ? "auto" : "smooth" });
+    }
+  });
+  // Não abre o link se foi um arraste
+  rolo.addEventListener("click", e => { if (arrastou) { e.preventDefault(); e.stopPropagation(); arrastou = false; } }, true);
 }
 
 /* ---------- Dúvidas e depoimentos ---------- */
@@ -1113,6 +1287,7 @@ $("#ano").textContent = new Date().getFullYear();
 montarCatalogo();
 montarAtalhos();
 montarDuvidas();
+montarCinema();
 document.querySelectorAll("#catalogo .cab-cat").forEach(el => revelar(el));
 document.querySelectorAll("#catalogo .itens").forEach(g => [...g.children].forEach((el, i) => revelar(el, i % 4)));
 atualizarResumo();
