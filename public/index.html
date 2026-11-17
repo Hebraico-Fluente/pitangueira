@@ -483,10 +483,26 @@
   footer .credito { margin: 14px auto 0; padding-top: 14px; border-top: 1px solid rgba(243, 201, 209, .2); max-width: 280px; font-size: .76rem; letter-spacing: .04em; opacity: .85; }
   footer .credito strong { color: #fff; font-weight: 600; }
 
+  /* "Reduzir movimento" ligado no aparelho: nada balança, pula ou desliza,
+     mas o site continua vivo com uma versão suave (esmaecer e giros lentos). */
+  @keyframes aparece { from { opacity: 0; } }
+  @keyframes pisca { 50% { opacity: .35; } }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
-    .js-anima .revelar:not(.visivel) { opacity: 1; }
     .sublinhado path { stroke-dashoffset: 0; }
+    /* Seções aparecem só esmaecendo (sem subir) */
+    .js-anima .revelar.visivel { animation: aparece 900ms ease-out backwards !important; animation-delay: calc(var(--i, 0) * 70ms) !important; }
+    .entra { animation: aparece 900ms ease-out backwards !important; animation-delay: calc(100ms + var(--d, 0) * 110ms) !important; }
+    .adesivo-hero { animation: aparece 1000ms ease-out 700ms backwards !important; }
+    /* Estrelas girando bem devagar; as pequenas também piscam */
+    .hero .e1, .hero .e2, .contato .estrela, .resumo .topo-resumo .estrela { animation: gira 70s linear infinite !important; }
+    .hero .e3, .hero .e4, .hero .e5 { animation: gira 30s linear infinite, pisca 3s ease-in-out infinite !important; }
+    .faixa-servicos span::after { animation: gira 14s linear infinite !important; }
+    /* Faixa de serviços rolando mais devagar */
+    .faixa-servicos .trilho { animation: rola 80s linear infinite !important; }
+    .faixa-servicos:hover .trilho { animation-play-state: paused !important; }
+    /* Respostas suaves de cor nos botões continuam */
+    .btn, .btn-add, .atalhos a, .faq details { transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease !important; }
   }
 </style>
 </head>
