@@ -120,6 +120,12 @@
   /* "cara de vocês" se escrevendo */
   .hero h1 .script { clip-path: inset(-20% 0 -20% 0); animation: escreve 1300ms var(--ease-in-out) 650ms backwards; }
   @keyframes escreve { from { clip-path: inset(-20% 100% -20% 0); } }
+  /* Frases que se alternam no título (empilhadas, sem pular o layout) */
+  .hero h1 .script.troca { display: grid; justify-items: center; clip-path: none; animation: none; }
+  .troca .frase { grid-area: 1 / 1; clip-path: inset(-20% 100% -20% 0); white-space: nowrap; }
+  .troca .frase.ativa { clip-path: inset(-20% 0 -20% 0); animation: escreve 1300ms var(--ease-in-out) backwards; }
+  .troca .frase.ativa.primeira { animation-delay: 650ms; }
+  .troca .frase.saindo { clip-path: inset(-20% 0 -20% 0); opacity: 0; transform: translateY(-12px); transition: opacity 450ms var(--ease-out), transform 450ms var(--ease-out); }
 
   /* Faixa de serviços rolando */
   .faixa-servicos { background: var(--bordo); color: #fff; overflow: hidden; padding: 16px 0; border-top: 3px solid var(--amarelo); }
@@ -487,7 +493,7 @@
     <div class="container">
       <img class="icone-hero entra" src="marca/icone-branco.svg" alt="" aria-hidden="true">
       <span class="etiqueta entra" style="--d:1">Design & papelaria para casamentos</span>
-      <h1 class="entra" style="--d:2">Seu casamento com a <span class="script">cara de vocês</span></h1>
+      <h1 class="entra" style="--d:2">Seu casamento com a <span class="script troca" aria-hidden="true"><span class="frase ativa primeira">cara de vocês</span><span class="frase">sua essência</span></span><span class="sr">cara de vocês, com a sua essência</span></h1>
       <p class="entra" style="--d:4">Criamos a identidade visual e a papelaria do seu grande dia, sem moldes prontos. Monte seu orçamento aqui e envie direto para o nosso WhatsApp.</p>
       <div class="botoes entra" style="--d:5">
         <a class="btn btn-bordo" href="#orcamento">Montar meu orçamento</a>
@@ -914,6 +920,23 @@ function mudou(id) {
   atualizarResumo();
 }
 
+/* ---------- Frase alternada do hero ---------- */
+function alternarFrases() {
+  const frases = [...document.querySelectorAll(".troca .frase")];
+  if (frases.length < 2 || semMovimento) return;
+  let atual = 0;
+  setInterval(() => {
+    if (document.hidden) return;
+    const sai = frases[atual];
+    atual = (atual + 1) % frases.length;
+    const entra = frases[atual];
+    sai.classList.remove("ativa", "primeira");
+    sai.classList.add("saindo");
+    setTimeout(() => sai.classList.remove("saindo"), 500);
+    entra.classList.add("ativa");
+  }, 4500);
+}
+
 /* ---------- Atalhos de categoria ---------- */
 function montarAtalhos() {
   const nav = $("#atalhos");
@@ -1287,6 +1310,7 @@ $("#ano").textContent = new Date().getFullYear();
 montarCatalogo();
 montarAtalhos();
 montarDuvidas();
+alternarFrases();
 montarCinema();
 document.querySelectorAll("#catalogo .cab-cat").forEach(el => revelar(el));
 document.querySelectorAll("#catalogo .itens").forEach(g => [...g.children].forEach((el, i) => revelar(el, i % 4)));
