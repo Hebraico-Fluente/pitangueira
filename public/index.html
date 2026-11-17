@@ -77,6 +77,7 @@
   .topo .container { display: flex; align-items: center; justify-content: space-between; height: 70px; gap: 16px; }
   .topo .logo img { height: 46px; width: auto; }
   nav.menu { display: flex; gap: 28px; font-size: .9rem; font-weight: 500; }
+  @media (max-width: 960px) { nav.menu { gap: 18px; } nav.menu .so-desktop { display: none; } }
   nav.menu a { text-decoration: none; color: var(--bordo); position: relative; }
   nav.menu a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 2px; background: var(--laranja); transform: scaleX(0); transform-origin: left; transition: transform .25s; }
   nav.menu a:hover::after { transform: scaleX(1); }
@@ -164,12 +165,20 @@
   @media (max-width: 380px) { .hero .etiqueta { font-size: .6rem; letter-spacing: .03em; } }
   .hero .container { position: relative; z-index: 1; }
 
-  /* Adesivos das duas nos cantos do hero (só em telas grandes) */
-  .adesivo-hero { position: absolute; z-index: 0; width: 210px; height: auto; filter: drop-shadow(0 14px 18px rgba(59, 22, 34, .35)); pointer-events: none; display: none; }
+  /* Adesivos das duas nos cantos do hero */
+  .adesivo-hero { position: absolute; z-index: 0; width: 210px; height: auto; filter: drop-shadow(0 14px 18px rgba(59, 22, 34, .35)); pointer-events: none; transform: rotate(var(--r)); animation: entra-adesivo 900ms var(--ease-pop) 900ms backwards, flutua var(--t, 8s) var(--ease-in-out) 1.8s infinite alternate; }
   .adesivo-hero.a1 { left: max(2vw, calc(50% - 640px)); top: 400px; --r: -8deg; }
   .adesivo-hero.a2 { right: max(2vw, calc(50% - 640px)); top: 70px; width: 185px; --r: 7deg; --t: 10s; }
-  @media (min-width: 1100px) {
-    .adesivo-hero { display: block; transform: rotate(var(--r)); animation: entra-adesivo 900ms var(--ease-pop) 900ms backwards, flutua var(--t, 8s) var(--ease-in-out) 1.8s infinite alternate; }
+  /* Celular e tablet: adesivos menores, nos cantos de baixo, longe do texto */
+  @media (max-width: 1099px) {
+    .hero { padding-bottom: 150px; }
+    .adesivo-hero.a1 { width: 96px; left: 4%; top: auto; bottom: 16px; }
+    .adesivo-hero.a2 { width: 84px; right: 5%; top: auto; bottom: 26px; }
+  }
+  @media (min-width: 700px) and (max-width: 1099px) {
+    .hero { padding-bottom: 120px; }
+    .adesivo-hero.a1 { width: 150px; left: 4%; top: auto; bottom: 30px; }
+    .adesivo-hero.a2 { width: 130px; right: 5%; top: 50px; bottom: auto; }
   }
   @keyframes entra-adesivo { from { opacity: 0; transform: scale(.6) rotate(calc(var(--r) - 20deg)); } }
   .hero h1 { font-size: clamp(2.8rem, 7vw, 5.2rem); max-width: 14ch; margin: 0 auto; }
@@ -212,6 +221,10 @@
   @media (hover: hover) and (pointer: fine) {
     .pessoa:hover .foto img { animation: mexe 650ms var(--ease-in-out); }
   }
+  /* Balançadinha automática quando aparece na tela (no toque não existe "passar o mouse") */
+  .pessoa.visivel .foto img { animation: mexe 750ms var(--ease-in-out) 700ms; }
+  .pessoa.visivel:nth-child(2) .foto img { animation-delay: 950ms; }
+  .passo.visivel .ilustra { animation: balanca 500ms var(--ease-in-out) 600ms 2 alternate; }
   @keyframes mexe {
     25% { transform: rotate(-9deg) scale(1.05); }
     55% { transform: rotate(6deg) scale(1.05); }
@@ -425,6 +438,14 @@
   .controles-rolo button:active { transform: scale(.94); }
   .controles-rolo button:disabled { opacity: .35; pointer-events: none; }
   .controles-rolo a { color: var(--pessego); font-weight: 600; font-size: .9rem; }
+
+  /* Resposta ao toque (celular) */
+  @media (hover: none) {
+    .item, .passo, .pessoa, .quadro-video, .projeto .capa { transition: transform 160ms var(--ease-out); }
+    .item:active, .passo:active, .pessoa:active, .quadro-video:active, .projeto:active .capa { transform: scale(.98); }
+    .projeto .capa .ver { opacity: 1; transform: none; }
+    .pessoa:active .foto img { animation: mexe 650ms var(--ease-in-out); }
+  }
 
   /* ---------- Depoimentos ---------- */
   #depoimentos { background: var(--areia); }
