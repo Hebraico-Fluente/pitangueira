@@ -47,6 +47,9 @@
   /* ---------- Login ---------- */
   .login { min-height: 100vh; display: grid; place-items: center; padding: 24px; background: var(--laranja); position: relative; overflow: hidden; }
   .login .estrela { position: absolute; fill: var(--pessego); opacity: .7; }
+  @keyframes gira { to { rotate: 360deg; } }
+  .login .e1 { animation: gira 40s linear infinite; }
+  .login .e2 { animation: gira 28s linear infinite reverse; }
   .login .e1 { width: 260px; left: -60px; top: -40px; }
   .login .e2 { width: 200px; right: -50px; bottom: -30px; fill: var(--amarelo); opacity: .6; }
   .login form { position: relative; background: var(--branco); border-radius: 24px; padding: 32px 28px; width: min(380px, 100%); box-shadow: var(--sombra); text-align: center; display: grid; gap: 14px; }
@@ -157,7 +160,7 @@
   .toast.erro { background: var(--bordo); }
 
   .carregando { text-align: center; padding: 60px 0; color: var(--suave); }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
 </style>
 </head>
 <body>

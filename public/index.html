@@ -96,16 +96,18 @@
     36% { transform: translate(-50%, -48%) rotate(-8deg) scale(1.025); }
   }
   .estrela { position: absolute; z-index: -1; fill: var(--pessego); opacity: .75; }
-  .hero .estrela { transform: rotate(var(--r, 0deg)); animation: flutua var(--t, 9s) var(--ease-in-out) infinite alternate; }
+  /* Estrelas girando sem parar (o giro usa a propriedade "rotate", que soma com as outras animações) */
+  @keyframes gira { to { rotate: 360deg; } }
+  .hero .estrela { transform: rotate(var(--r, 0deg)); animation: flutua var(--t, 9s) var(--ease-in-out) infinite alternate, gira var(--g, 40s) linear infinite; }
   @keyframes flutua {
     from { transform: translateY(0) rotate(var(--r, 0deg)); }
     to { transform: translateY(-18px) rotate(calc(var(--r, 0deg) + 16deg)); }
   }
   .hero .e1 { width: 220px; left: -60px; top: 30px; --r: 12deg; }
-  .hero .e2 { width: 260px; right: -70px; bottom: -40px; --r: -10deg; --t: 11s; }
-  .hero .e3 { width: 70px; right: 14%; top: 50px; fill: var(--amarelo); opacity: .9; animation: brilha 2.6s var(--ease-in-out) infinite; }
-  .hero .e4 { width: 34px; left: 16%; bottom: 90px; fill: var(--amarelo); opacity: .9; animation: brilha 3.1s var(--ease-in-out) .8s infinite; }
-  .hero .e5 { width: 22px; right: 26%; bottom: 60px; fill: #fff; opacity: .8; animation: brilha 2.2s var(--ease-in-out) 1.4s infinite; }
+  .hero .e2 { width: 260px; right: -70px; bottom: -40px; --r: -10deg; --t: 11s; --g: 55s; animation-direction: alternate, reverse; }
+  .hero .e3 { width: 70px; right: 14%; top: 50px; fill: var(--amarelo); opacity: .9; animation: brilha 2.6s var(--ease-in-out) infinite, gira 12s linear infinite; }
+  .hero .e4 { width: 34px; left: 16%; bottom: 90px; fill: var(--amarelo); opacity: .9; animation: brilha 3.1s var(--ease-in-out) .8s infinite, gira 9s linear infinite reverse; }
+  .hero .e5 { width: 22px; right: 26%; bottom: 60px; fill: #fff; opacity: .8; animation: brilha 2.2s var(--ease-in-out) 1.4s infinite, gira 7s linear infinite; }
   @keyframes brilha {
     0%, 100% { transform: scale(1) rotate(0deg); opacity: .9; }
     50% { transform: scale(.6) rotate(45deg); opacity: .45; }
@@ -123,7 +125,8 @@
   .faixa-servicos .trilho { display: flex; width: max-content; animation: rola 38s linear infinite; }
   .faixa-servicos:hover .trilho { animation-play-state: paused; }
   .faixa-servicos span { font-family: var(--f-titulo); font-size: 1.35rem; white-space: nowrap; padding: 0 18px; display: inline-flex; align-items: center; gap: 36px; }
-  .faixa-servicos span::after { content: "✦"; color: var(--amarelo); font-size: 1rem; }
+  .faixa-servicos span::after { content: "✦"; color: var(--amarelo); font-size: 1rem; display: inline-block; animation: gira 5s linear infinite; }
+  .faixa-servicos span:nth-child(even)::after { animation-direction: reverse; animation-duration: 7s; }
   .faixa-servicos span:nth-child(even) { font-family: var(--f-script); font-size: 1.9rem; color: var(--pessego); }
   @keyframes rola { to { transform: translateX(-50%); } }
 
@@ -283,7 +286,7 @@
   .resumo .topo-resumo { background: var(--bordo); color: #fff; padding: 20px 24px 18px; position: relative; overflow: hidden; }
   .resumo .topo-resumo h3 { font-size: 1.8rem; }
   .resumo .topo-resumo p { margin: 2px 0 0; font-size: .82rem; opacity: .85; }
-  .resumo .topo-resumo .estrela { width: 110px; right: -30px; top: -30px; fill: var(--laranja); opacity: .55; z-index: 0; }
+  .resumo .topo-resumo .estrela { width: 110px; right: -30px; top: -30px; fill: var(--laranja); opacity: .55; z-index: 0; animation: gira 24s linear infinite; }
   .resumo .topo-resumo > h3, .resumo .topo-resumo > p { position: relative; z-index: 1; }
   .resumo .corpo-resumo { padding: 8px 24px 24px; }
   .resumo .vazio { color: var(--suave); font-size: .9rem; padding: 14px 0; }
@@ -445,7 +448,8 @@
 
   /* ---------- Contato ---------- */
   .contato { background: var(--bordo); color: #fff; text-align: center; overflow: hidden; isolation: isolate; }
-  .contato .estrela { fill: var(--laranja); opacity: .35; }
+  .contato .estrela { fill: var(--laranja); opacity: .35; animation: gira 45s linear infinite; }
+  .contato .e2 { animation-duration: 22s; animation-direction: reverse; }
   .contato .e1 { width: 240px; left: -70px; bottom: -60px; }
   .contato .e2 { width: 140px; right: 6%; top: -30px; fill: var(--coral); }
   .contato h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
