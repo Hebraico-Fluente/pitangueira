@@ -30,8 +30,8 @@
   .btn:active { transform: scale(.97); }
   .btn-bordo { background: var(--bordo); color: #fff; }
   .btn-bordo:hover { background: var(--bordo-escuro); }
-  .btn-laranja { background: var(--laranja); color: #fff; }
-  .btn-laranja:hover { background: var(--laranja-escuro); }
+  .btn-laranja { background: var(--laranja); color: var(--texto); }
+  .btn-laranja:hover { background: var(--amarelo); }
   .btn-linha { border-color: var(--linha); background: var(--branco); color: var(--bordo); }
   .btn-linha:hover { border-color: var(--bordo); }
   .btn-verde { background: var(--verde); color: #fff; }
@@ -77,7 +77,7 @@
   .numero .valor { font-family: var(--f-titulo); font-size: 2rem; color: var(--bordo); line-height: 1.1; font-variant-numeric: tabular-nums; }
   .numero .extra { font-size: .82rem; color: var(--suave); font-variant-numeric: tabular-nums; }
   .numero.destaque { background: var(--laranja); border-color: var(--laranja); color: #fff; }
-  .numero.destaque .rotulo, .numero.destaque .extra, .numero.destaque .valor { color: #fff; }
+  .numero.destaque .rotulo, .numero.destaque .extra, .numero.destaque .valor { color: var(--texto); }
 
   /* ---------- Filtros ---------- */
   .filtros { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }

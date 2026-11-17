@@ -8,7 +8,20 @@ import {
 
 const ORIGENS_MANUAIS = ["instagram", "whatsapp", "indicacao", "outro"];
 
-export async function onRequestPost({ request, env }) {
+// Aviso no celular quando chega pedido novo (app gratuito "ntfy").
+// Ative criando a variável NTFY_TOPICO na Cloudflare com um nome secreto e difícil de adivinhar.
+function avisarCelular(env, waitUntil, request, lead) {
+  if (!env.NTFY_TOPICO || !waitUntil) return;
+  const total = lead.total.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+  const painel = new URL("/painel/", request.url).toString();
+  waitUntil(fetch(`https://ntfy.sh/${encodeURIComponent(env.NTFY_TOPICO)}`, {
+    method: "POST",
+    headers: { Title: "Novo pedido no site", Tags: "orange_heart", Click: painel },
+    body: `${lead.nome}: ${lead.itens} ${lead.itens === 1 ? "item" : "itens"}, ${total}${lead.aCombinar ? " + a combinar" : ""}`,
+  }).catch(() => {}));
+}
+
+export async function onRequestPost({ request, env, waitUntil }) {
   try {
     const banco = await db(env);
     const b = await lerJson(request);
@@ -52,6 +65,7 @@ export async function onRequestPost({ request, env }) {
     const total = itens.reduce((t, i) => t + (i.subtotal || 0), 0);
     const aCombinar = itens.some(i => i.subtotal === null) ? 1 : 0;
     const comIdv = itens.some(i => i.id === "identidade-visual") ? 1 : 0;
+    const jaExistia = await banco.prepare("SELECT 1 FROM leads WHERE id = ?").bind(id).first();
 
     await banco.prepare(
       `INSERT INTO leads (id, criado_em, atualizado_em, origem, nome, whatsapp, data_casamento, local,
@@ -67,6 +81,7 @@ export async function onRequestPost({ request, env }) {
       id, agora, agora, comum.nome, comum.whatsapp, comum.data_casamento, comum.local,
       comum.convidados, comum.obs, JSON.stringify(itens), total, aCombinar, comIdv,
     ).run();
+    if (!jaExistia) avisarCelular(env, waitUntil, request, { nome: comum.nome, itens: itens.length, total, aCombinar });
     return json({ ok: true }, 201);
   } catch (e) {
     return tratarErro(e);

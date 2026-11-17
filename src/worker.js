@@ -6,16 +6,16 @@ import * as item from "../functions/api/leads/[id].js";
 
 const METODOS = { GET: "onRequestGet", POST: "onRequestPost", PATCH: "onRequestPatch", DELETE: "onRequestDelete" };
 
-function despachar(modulo, request, env, params = {}) {
+function despachar(modulo, request, env, ctx, params = {}) {
   const fn = modulo[METODOS[request.method]];
   if (!fn) return new Response(JSON.stringify({ erro: "Método não permitido." }), {
     status: 405, headers: { "content-type": "application/json; charset=utf-8" },
   });
-  return fn({ request, env, params });
+  return fn({ request, env, params, waitUntil: p => ctx.waitUntil(p) });
 }
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const { pathname } = new URL(request.url);
     // Diagnóstico: mostra só os NOMES das configurações (nunca os valores).
     if (pathname === "/api/status") {
@@ -25,9 +25,21 @@ export default {
         variaveis: Object.keys(env).filter(k => k !== "DB" && k !== "ASSETS"),
       }), { headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
     }
-    if (pathname === "/api/leads" || pathname === "/api/leads/") return despachar(lista, request, env);
+    if (pathname === "/api/leads" || pathname === "/api/leads/") return despachar(lista, request, env, ctx);
     const m = pathname.match(/^\/api\/leads\/([^/]+)\/?$/);
-    if (m) return despachar(item, request, env, { id: decodeURIComponent(m[1]) });
-    return env.ASSETS.fetch(request);
+    if (m) return despachar(item, request, env, ctx, { id: decodeURIComponent(m[1]) });
+
+    const resposta = await env.ASSETS.fetch(request);
+    // Na página inicial, completa os endereços da prévia do link (og:image, og:url)
+    // com o domínio atual, para funcionar em qualquer domínio.
+    if (pathname === "/" && (resposta.headers.get("content-type") || "").includes("text/html")) {
+      const origem = new URL(request.url).origin;
+      const absoluto = { element(el) { const c = el.getAttribute("content"); if (c && c.startsWith("/")) el.setAttribute("content", origem + c); } };
+      return new HTMLRewriter()
+        .on('meta[property="og:image"]', absoluto)
+        .on('meta[property="og:url"]', absoluto)
+        .transform(resposta);
+    }
+    return resposta;
   },
 };

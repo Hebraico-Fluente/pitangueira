@@ -6,6 +6,20 @@
 <title>Pitangueira · Design para casamentos criativos</title>
 <meta name="description" content="Pitangueira — design e papelaria para casamentos autênticos. Monte seu orçamento online e envie direto pelo WhatsApp.">
 <link rel="icon" href="marca/icone-bordo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#FF7C38">
+<!-- Prévia do link no WhatsApp, Instagram e redes (o endereço completo é preenchido pelo servidor) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pitangueira">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Pitangueira · Design para casamentos criativos">
+<meta property="og:description" content="Identidade visual e papelaria para casamentos autênticos. Monte seu orçamento online e envie pelo WhatsApp.">
+<meta property="og:url" content="/">
+<meta property="og:image" content="/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pitangueira: seu casamento com a cara de vocês">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Fontes do manual: TheSeasons (títulos) e Gotham (textos).
@@ -22,6 +36,7 @@
     /* Apoio */
     --bordo-escuro: #7E1C35;
     --laranja-escuro: #F0682A;
+    --laranja-texto: #D1652D; /* laranja para textos grandes sobre fundo claro (contraste acessível) */
     --pessego: #FFC9A8;
     --creme: #FFF7EE;
     --areia: #FCEADB;
@@ -55,7 +70,7 @@
 
   /* Marca-texto, como nos posts */
   .marca-texto { background: linear-gradient(transparent 18%, var(--bordo) 18%, var(--bordo) 88%, transparent 88%); color: #fff; padding: 0 .25em; box-decoration-break: clone; -webkit-box-decoration-break: clone; border-radius: 3px; transform: skew(-4deg); display: inline; }
-  .marca-texto.claro { background: linear-gradient(transparent 18%, var(--pessego) 18%, var(--pessego) 88%, transparent 88%); color: var(--bordo); }
+  .marca-texto.claro { background: linear-gradient(transparent 18%, var(--pessego) 18%, var(--pessego) 88%, transparent 88%); color: var(--bordo-escuro); }
 
   /* ---------- Topo ---------- */
   header.topo { position: sticky; top: 0; z-index: 30; background: rgba(255, 247, 238, .94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--linha); }
@@ -144,11 +159,13 @@
     .passo:hover .ilustra { animation: balanca 600ms var(--ease-in-out) 2 alternate; }
   }
   .etiqueta { display: inline-block; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; margin-bottom: 14px; }
-  .hero .etiqueta { color: var(--bordo); background: var(--pessego); padding: 6px 14px; border-radius: 999px; }
+  .hero .etiqueta { color: var(--bordo-escuro); background: var(--pessego); padding: 6px 14px; border-radius: 999px; }
   @media (max-width: 480px) { .hero .etiqueta { font-size: .66rem; letter-spacing: .12em; } }
   .hero h1 { font-size: clamp(2.8rem, 7vw, 5.2rem); max-width: 14ch; margin: 0 auto; }
   .hero h1 .script { display: block; font-size: 1.15em; line-height: .9; margin-top: .05em; }
-  .hero p { max-width: 52ch; margin: 22px auto 34px; font-size: 1.06rem; }
+  .hero p { max-width: 52ch; margin: 22px auto 34px; font-size: 1.08rem; font-weight: 500; color: var(--texto); }
+  .hero .btn-branco { background: #fff; color: var(--bordo); border-color: #fff; }
+  .hero .btn-branco:hover { background: var(--pessego); border-color: var(--pessego); color: var(--bordo-escuro); }
   .botoes { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
   .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 13px 26px; border-radius: 999px; border: 2px solid transparent; font-weight: 600; font-size: .95rem; text-decoration: none; transition: background .2s, color .2s, transform .15s, border-color .2s; }
   .btn:active { transform: scale(.97); }
@@ -164,7 +181,7 @@
   section.bloco { padding: 84px 0; position: relative; }
   .titulo-secao { text-align: center; margin-bottom: 46px; }
   .titulo-secao h2 { font-size: clamp(2.2rem, 4.5vw, 3.2rem); color: var(--bordo); }
-  .titulo-secao h2 .script { color: var(--laranja); font-size: 1.2em; }
+  .titulo-secao h2 .script { color: var(--laranja-texto); font-size: 1.2em; }
   .titulo-secao p { color: var(--suave); max-width: 58ch; margin: 12px auto 0; }
 
   /* ---------- Quem somos ---------- */
@@ -174,7 +191,8 @@
   .sobre-texto .destaque { font-family: var(--f-titulo); font-size: 1.5rem; color: var(--bordo); line-height: 1.3; }
   .duo { display: grid; gap: 16px; }
   .pessoa { background: var(--bordo); color: #fff; border-radius: 22px; padding: 20px 22px; display: flex; gap: 18px; align-items: center; box-shadow: var(--sombra); }
-  .pessoa:nth-child(2) { margin-left: 40px; background: var(--laranja); }
+  .pessoa:nth-child(2) { margin-left: 40px; background: var(--laranja); color: var(--texto); }
+  .pessoa:nth-child(2) h3 { color: var(--bordo-escuro); }
   .pessoa .foto { width: 116px; height: 116px; border-radius: 50%; flex-shrink: 0; background: var(--coral); display: grid; place-items: center; position: relative; }
   /* Foto recortada (adesivo com contorno bordô), saindo um pouco do círculo como nos posts */
   .pessoa .foto img { position: absolute; left: -8%; bottom: -4%; width: 116%; height: 125%; object-fit: contain; object-position: center bottom; filter: drop-shadow(0 6px 10px rgba(59, 22, 34, .3)); transform: rotate(-4deg); }
@@ -198,6 +216,15 @@
   @media (max-width: 980px) { .orc-grid { grid-template-columns: 1fr; } }
 
   .categoria + .categoria { margin-top: 44px; }
+  .categoria { scroll-margin-top: 150px; }
+  /* Atalhos de categoria (fixos no topo enquanto rola o orçamento) */
+  .atalhos { position: sticky; top: 70px; z-index: 15; display: flex; gap: 8px; overflow-x: auto; padding: 12px 2px; margin: -12px 0 22px; background: linear-gradient(var(--areia) 80%, transparent); scrollbar-width: none; -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent); mask-image: linear-gradient(90deg, #000 92%, transparent); }
+  .atalhos::-webkit-scrollbar { display: none; }
+  .atalhos a { flex-shrink: 0; text-decoration: none; font-size: .86rem; font-weight: 600; color: var(--bordo); background: var(--branco); border: 1.5px solid var(--linha); border-radius: 999px; padding: 8px 16px; transition: background 200ms ease, color 200ms ease, border-color 200ms ease; }
+  .atalhos a:hover { border-color: var(--bordo); }
+  .atalhos a[aria-current="true"] { background: var(--bordo); border-color: var(--bordo); color: #fff; }
+  .atalhos a .qtd-sel[hidden] { display: none; }
+  .atalhos a .qtd-sel { display: inline-grid; place-items: center; min-width: 20px; height: 20px; margin-left: 6px; padding: 0 5px; border-radius: 999px; background: var(--amarelo); color: var(--texto); font-size: .72rem; }
   .categoria .cab-cat { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
   .categoria .cab-cat img { width: 28px; }
   .categoria h3 { font-size: 1.9rem; color: var(--bordo); }
@@ -229,12 +256,11 @@
     .stepper { justify-content: space-between; }
     .stepper input { width: 40px; }
   }
-  .item h4 { flex: 1; }
   .item .preco { font-weight: 600; color: var(--bordo); font-variant-numeric: tabular-nums; }
   .item .preco small { font-weight: 400; color: var(--suave); }
   .item .acoes { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; min-height: 40px; flex-wrap: wrap; }
-  .btn-add { border: 1.5px solid var(--laranja); color: var(--laranja-escuro); background: transparent; padding: 7px 16px; border-radius: 999px; font-size: .86rem; font-weight: 600; transition: background .2s, color .2s, border-color .2s; }
-  .btn-add:hover { background: var(--laranja); color: #fff; }
+  .btn-add { border: 1.5px solid var(--laranja); color: var(--bordo); background: transparent; padding: 7px 16px; border-radius: 999px; font-size: .86rem; font-weight: 600; transition: background .2s, color .2s, border-color .2s; }
+  .btn-add:hover { background: var(--bordo); border-color: var(--bordo); color: #fff; }
   .item.selecionado .btn-add { background: var(--bordo); border-color: var(--bordo); color: #fff; }
 
   .stepper { display: inline-flex; align-items: center; border: 1.5px solid var(--linha); border-radius: 999px; overflow: hidden; background: var(--creme); }
@@ -244,7 +270,7 @@
   .stepper input::-webkit-outer-spin-button, .stepper input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
   /* Resumo */
-  .resumo { position: sticky; top: 90px; background: var(--branco); border-radius: 22px; box-shadow: var(--sombra); max-height: calc(100vh - 110px); overflow: auto; }
+  .resumo { position: sticky; top: 146px; background: var(--branco); border-radius: 22px; box-shadow: var(--sombra); max-height: calc(100vh - 166px); overflow: auto; }
   .resumo .topo-resumo { background: var(--bordo); color: #fff; padding: 20px 24px 18px; position: relative; overflow: hidden; }
   .resumo .topo-resumo h3 { font-size: 1.8rem; }
   .resumo .topo-resumo p { margin: 2px 0 0; font-size: .82rem; opacity: .85; }
@@ -281,6 +307,7 @@
   .btn-whats:hover { background: #177444; }
   .btn-whats[aria-disabled="true"] { background: #C9BDBA; cursor: not-allowed; }
   .btn-whats svg { width: 20px; height: 20px; }
+  .privacidade { font-size: .74rem; color: var(--suave); text-align: center; margin: 12px 0 0; }
   .limpar { display: block; margin: 10px auto 0; background: none; border: 0; color: var(--suave); font-size: .82rem; text-decoration: underline; }
 
   .barra-mobile, .fechar-resumo { display: none; }
@@ -327,6 +354,26 @@
   .fotos .ph { aspect-ratio: 3 / 4; }
   .fotos .ph:nth-child(3n+2) { aspect-ratio: 1; }
 
+  /* ---------- Depoimentos ---------- */
+  #depoimentos { background: var(--areia); }
+  .depoimentos { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .depoimento { background: var(--branco); border-radius: 22px; padding: 26px 24px 22px; margin: 0; box-shadow: var(--sombra); position: relative; }
+  .depoimento::before { content: "“"; position: absolute; top: -18px; left: 20px; font-family: var(--f-titulo); font-size: 5rem; line-height: 1; color: var(--laranja); }
+  .depoimento blockquote { margin: 0; font-size: 1rem; }
+  .depoimento figcaption { margin-top: 14px; font-family: var(--f-script); font-size: 1.8rem; color: var(--bordo); line-height: 1; }
+
+  /* ---------- Dúvidas ---------- */
+  .estreito { max-width: 820px; }
+  .faq { display: grid; gap: 12px; }
+  .faq details { background: var(--branco); border: 1.5px solid var(--linha); border-radius: 18px; transition: border-color 200ms ease, box-shadow 200ms ease; }
+  .faq details[open] { border-color: var(--laranja); box-shadow: var(--sombra); }
+  .faq summary { list-style: none; cursor: pointer; padding: 18px 22px; font-weight: 600; color: var(--bordo); display: flex; justify-content: space-between; gap: 16px; align-items: center; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--areia); color: var(--bordo); font-size: 1.3rem; font-weight: 500; transition: transform 250ms var(--ease-out), background 200ms ease; }
+  .faq details[open] summary::after { transform: rotate(45deg); background: var(--amarelo); }
+  .faq details p { margin: 0; padding: 0 22px 20px; color: var(--suave); }
+  .faq details[open] p { animation: sobe 350ms var(--ease-out); }
+
   /* ---------- Contato ---------- */
   .contato { background: var(--bordo); color: #fff; text-align: center; overflow: hidden; isolation: isolate; }
   .contato .estrela { fill: var(--laranja); opacity: .35; }
@@ -335,8 +382,8 @@
   .contato h2 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
   .contato h2 .script { display: block; font-size: 1.3em; color: var(--amarelo); line-height: 1; }
   .contato p { max-width: 50ch; margin: 14px auto 30px; opacity: .9; }
-  .contato .btn-laranja { background: var(--laranja); color: #fff; }
-  .contato .btn-laranja:hover { background: var(--laranja-escuro); }
+  .contato .btn-laranja { background: var(--laranja); color: var(--texto); }
+  .contato .btn-laranja:hover { background: var(--amarelo); }
   footer { background: var(--bordo-escuro); color: #F3C9D1; text-align: center; font-size: .82rem; padding: 26px 0; }
   footer img { height: 54px; margin: 0 auto 10px; }
 
@@ -362,6 +409,7 @@
       <a href="#sobre" class="so-desktop">Quem somos</a>
       <a href="#orcamento">Orçamento</a>
       <a href="#portfolio">Portfólio</a>
+      <a href="#duvidas" class="so-desktop">Dúvidas</a>
       <a href="#contato" class="so-desktop">Contato</a>
     </nav>
   </div>
@@ -392,19 +440,19 @@
   <section class="bloco" id="sobre">
     <div class="container sobre">
       <div class="sobre-texto revelar">
-        <span class="etiqueta" style="color: var(--laranja-escuro)">Quem somos</span>
+        <span class="etiqueta" style="color: var(--bordo)">Quem somos</span>
         <p class="destaque">Duas designers, duas cabeças cheias de ideias e uma vontade enorme de transformar <span class="marca-texto">histórias de amor</span> em coisas que possam ser vistas, tocadas e lembradas.</p>
         <p>A gente acredita que casamento não precisa ter cara de “mais um casamento”. Ele pode ter personalidade, humor, cor, referências inesperadas e, principalmente, ter a cara de quem está celebrando.</p>
         <p>Assim como uma pitangueira, cada história tem suas raízes e cresce no seu tempo, de forma <span class="marca-texto claro">livre e autêntica</span>. Atendemos casais do mundo todo.</p>
       </div>
       <div class="duo">
-        <!-- Fotos: public/fotos/petala.png e public/fotos/isa.png. Se faltar o arquivo, aparece a inicial. -->
+        <!-- Fotos: public/fotos/petala.webp e public/fotos/isa.webp. Se faltar o arquivo, aparece a inicial. -->
         <div class="pessoa revelar" style="--i:1">
-          <div class="foto"><span>P</span><img src="fotos/petala.png" alt="Pétala" onerror="this.remove()"></div>
+          <div class="foto"><span>P</span><img src="fotos/petala.webp" alt="Pétala" width="440" height="520" loading="lazy" onerror="this.remove()"></div>
           <div><h3>Pétala</h3><p>Designer e artista. Mãe de três gatos, dois cachorros e 80 plantas, curte bons drinks em boas festas e ama ouvir uma história de amor.</p></div>
         </div>
         <div class="pessoa revelar" style="--i:3">
-          <div class="foto"><span>I</span><img src="fotos/isa.png" alt="Isa" onerror="this.remove()"></div>
+          <div class="foto"><span>I</span><img src="fotos/isa.webp" alt="Isa" width="391" height="413" loading="lazy" onerror="this.remove()"></div>
           <div><h3>Isa</h3><p>Arquiteta e designer. Mãe de três gatas, faz um brownie incrível e ama o amor!</p></div>
         </div>
       </div>
@@ -445,6 +493,7 @@
         <p class="nota-tabela">Valores da <strong>arte digital</strong>, praticados quando a <strong>Identidade Visual</strong> é contratada. Impressão e produção não inclusas. Para projetos sem identidade visual, consulte orçamento.</p>
       </div>
 
+      <nav class="atalhos" id="atalhos" aria-label="Categorias de serviços"></nav>
       <div class="orc-grid">
         <div id="catalogo"></div>
 
@@ -490,6 +539,7 @@
               Enviar pedido pelo WhatsApp
             </a>
             <button class="limpar" id="limpar" type="button" hidden>Limpar seleção</button>
+            <p class="privacidade">🔒 Usamos seus dados só para responder ao seu pedido.</p>
           </div>
         </aside>
       </div>
@@ -503,6 +553,24 @@
         <p>Alguns dos casamentos que tivemos a alegria de criar. Toque em um projeto para ver as fotos.</p>
       </div>
       <div class="port-grid" id="port-grid"></div>
+    </div>
+  </section>
+
+  <section class="bloco" id="depoimentos" hidden>
+    <div class="container">
+      <div class="titulo-secao revelar">
+        <h2>Quem já <span class="script sublinhado">viveu<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 7 C 25 2, 60 2, 98 6"/></svg></span></h2>
+      </div>
+      <div class="depoimentos" id="lista-depoimentos"></div>
+    </div>
+  </section>
+
+  <section class="bloco" id="duvidas">
+    <div class="container estreito">
+      <div class="titulo-secao revelar">
+        <h2>Ficou alguma <span class="script sublinhado">dúvida?<svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M2 7 C 25 2, 60 2, 98 6"/></svg></span></h2>
+      </div>
+      <div class="faq" id="faq"></div>
     </div>
   </section>
 
@@ -568,51 +636,51 @@ const CATEGORIAS = [
 //  - preco: valor em reais. Use null para "a combinar".
 //  - unidade / plural (opcional): para itens cobrados por arte ou por unidade.
 //    Aparece um campo de quantidade.
-//  - descricao (opcional): texto curto embaixo do nome.
+//  - descricao: texto curto embaixo do nome (explica o item para a cliente).
 const SERVICOS = [
-  { id: "identidade-visual", categoria: "identidade", nome: "Identidade Visual + Logo", preco: 2200, descricao: "Valores desta tabela valem com a Identidade Visual contratada." },
-  { id: "website",           categoria: "identidade", nome: "Website", preco: 2500 },
-  { id: "ilustracoes",       categoria: "identidade", nome: "Ilustrações personalizadas", preco: 100, unidade: "ilustração", plural: "ilustrações" },
+  { id: "identidade-visual", categoria: "identidade", nome: "Identidade Visual + Logo", preco: 2200, descricao: "Monograma, paleta de cores, tipografia e elementos exclusivos que guiam toda a papelaria." },
+  { id: "website",           categoria: "identidade", nome: "Website", preco: 2500, descricao: "Site do casamento com a identidade de vocês: história do casal, informações do evento e contagem regressiva." },
+  { id: "ilustracoes",       categoria: "identidade", nome: "Ilustrações personalizadas", preco: 100, unidade: "ilustração", plural: "ilustrações", descricao: "Desenhos exclusivos: o casal, os pets, o lugar especial de vocês..." },
 
-  { id: "save-the-date",     categoria: "convites", nome: "Save the date", preco: 120 },
-  { id: "convite-digital",   categoria: "convites", nome: "Convite digital", preco: 210 },
-  { id: "convite-impresso",  categoria: "convites", nome: "Convite impresso", preco: 280, descricao: "Arte para impressão." },
-  { id: "rsvp",              categoria: "convites", nome: "RSVP", preco: 120 },
-  { id: "convite-padrinhos", categoria: "convites", nome: "Convites madrinhas / padrinhos", preco: 450 },
-  { id: "convite-celebrante",categoria: "convites", nome: "Convite celebrante", preco: 400 },
-  { id: "guia-convidados",   categoria: "convites", nome: "Guia dos convidados", preco: 120 },
+  { id: "save-the-date",     categoria: "convites", nome: "Save the date", preco: 120, descricao: "Arte para avisar a data com antecedência, antes do convite oficial." },
+  { id: "convite-digital",   categoria: "convites", nome: "Convite digital", preco: 210, descricao: "Convite em formato digital, pronto para enviar por WhatsApp e redes sociais." },
+  { id: "convite-impresso",  categoria: "convites", nome: "Convite impresso", preco: 280, descricao: "Arte do convite pronta para impressão." },
+  { id: "rsvp",              categoria: "convites", nome: "RSVP", preco: 120, descricao: "Arte para os convidados confirmarem presença." },
+  { id: "convite-padrinhos", categoria: "convites", nome: "Convites madrinhas / padrinhos", preco: 450, descricao: "Arte especial para convidar padrinhos e madrinhas." },
+  { id: "convite-celebrante",categoria: "convites", nome: "Convite celebrante", preco: 400, descricao: "Arte especial para convidar quem vai celebrar a cerimônia." },
+  { id: "guia-convidados",   categoria: "convites", nome: "Guia dos convidados", preco: 120, descricao: "Tudo o que os convidados precisam saber: local, horários, traje, hospedagem..." },
 
-  { id: "entrada",           categoria: "cerimonia", nome: "Entrada", preco: 200 },
-  { id: "programacao",       categoria: "cerimonia", nome: "Programação", preco: 250 },
-  { id: "caderno-votos",     categoria: "cerimonia", nome: "Caderno de votos", preco: 250 },
-  { id: "porta-alianca",     categoria: "cerimonia", nome: "Porta aliança", preco: 350 },
-  { id: "lagrimas-alegria",  categoria: "cerimonia", nome: "Lágrimas de alegria", preco: 150 },
-  { id: "leque",             categoria: "cerimonia", nome: "Leque", preco: 120 },
-  { id: "porta-petalas",     categoria: "cerimonia", nome: "Porta pétalas", preco: 150 },
+  { id: "entrada",           categoria: "cerimonia", nome: "Entrada", preco: 200, descricao: "Placa de boas-vindas para receber os convidados na chegada." },
+  { id: "programacao",       categoria: "cerimonia", nome: "Programação", preco: 250, descricao: "Roteiro da cerimônia para os convidados acompanharem cada momento." },
+  { id: "caderno-votos",     categoria: "cerimonia", nome: "Caderno de votos", preco: 250, descricao: "Caderninhos personalizados para os votos de cada um." },
+  { id: "porta-alianca",     categoria: "cerimonia", nome: "Porta aliança", preco: 350, descricao: "Arte personalizada para o porta-alianças da cerimônia." },
+  { id: "lagrimas-alegria",  categoria: "cerimonia", nome: "Lágrimas de alegria", preco: 150, descricao: "Embalagem de lencinhos para os convidados que se emocionarem." },
+  { id: "leque",             categoria: "cerimonia", nome: "Leque", preco: 120, descricao: "Arte de leque para refrescar os convidados em cerimônias ao ar livre." },
+  { id: "porta-petalas",     categoria: "cerimonia", nome: "Porta pétalas", preco: 150, descricao: "Arte para os cones ou saquinhos de pétalas da saída do casal." },
 
-  { id: "numero-mesas",      categoria: "festa", nome: "Número das mesas + place cards", preco: 270 },
-  { id: "marcacao-lugares",  categoria: "festa", nome: "Marcação de lugares", preco: 250 },
-  { id: "menu-buffet",       categoria: "festa", nome: "Menu buffet", preco: 200 },
-  { id: "menu-bar",          categoria: "festa", nome: "Menu do bar", preco: 200 },
-  { id: "bolacha-cerveja",   categoria: "festa", nome: "Bolacha de cerveja", preco: 120 },
-  { id: "guardanapo",        categoria: "festa", nome: "Guardanapo", preco: 120 },
-  { id: "recado-noivos",     categoria: "festa", nome: "Recado noivos", preco: 350 },
-  { id: "mesa-jogos",        categoria: "festa", nome: "Mesa jogos", preco: 120 },
-  { id: "caderno-lembrancas",categoria: "festa", nome: "Caderno de lembranças", preco: 350 },
-  { id: "qrcode-fotos",      categoria: "festa", nome: "QR code fotos", preco: 120 },
-  { id: "qrcode-lua-mel",    categoria: "festa", nome: "QR code lua de mel", preco: 120 },
-  { id: "kit-banheiro",      categoria: "festa", nome: "Kit banheiro", preco: 300 },
-  { id: "papel-seda",        categoria: "festa", nome: "Papel seda", preco: 280 },
+  { id: "numero-mesas",      categoria: "festa", nome: "Número das mesas + place cards", preco: 270, descricao: "Números das mesas e cartões com o nome de cada convidado." },
+  { id: "marcacao-lugares",  categoria: "festa", nome: "Marcação de lugares", preco: 250, descricao: "Painel para os convidados encontrarem seus lugares." },
+  { id: "menu-buffet",       categoria: "festa", nome: "Menu buffet", preco: 200, descricao: "Cardápio do buffet com o visual do casamento." },
+  { id: "menu-bar",          categoria: "festa", nome: "Menu do bar", preco: 200, descricao: "Carta de drinks e bebidas do bar." },
+  { id: "bolacha-cerveja",   categoria: "festa", nome: "Bolacha de cerveja", preco: 120, descricao: "Porta-copos personalizado para o bar e as mesas." },
+  { id: "guardanapo",        categoria: "festa", nome: "Guardanapo", preco: 120, descricao: "Arte para guardanapos personalizados." },
+  { id: "recado-noivos",     categoria: "festa", nome: "Recado noivos", preco: 350, descricao: "Espaço para os convidados deixarem mensagens para o casal." },
+  { id: "mesa-jogos",        categoria: "festa", nome: "Mesa jogos", preco: 120, descricao: "Artes e sinalização para um cantinho de jogos na festa." },
+  { id: "caderno-lembrancas",categoria: "festa", nome: "Caderno de lembranças", preco: 350, descricao: "Livro de assinaturas para guardar o carinho dos convidados." },
+  { id: "qrcode-fotos",      categoria: "festa", nome: "QR code fotos", preco: 120, descricao: "QR code para os convidados compartilharem as fotos da festa." },
+  { id: "qrcode-lua-mel",    categoria: "festa", nome: "QR code lua de mel", preco: 120, descricao: "QR code para os convidados presentearem a lua de mel." },
+  { id: "kit-banheiro",      categoria: "festa", nome: "Kit banheiro", preco: 300, descricao: "Etiquetas e plaquinha para o kit de cuidados do banheiro." },
+  { id: "papel-seda",        categoria: "festa", nome: "Papel seda", preco: 280, descricao: "Arte para papel de seda personalizado, para embrulhos e mimos." },
 
-  { id: "lembrancinhas",     categoria: "mimos", nome: "Lembrancinhas", preco: null, descricao: "Valor a combinar de acordo com o projeto." },
-  { id: "estacao-lembrancinhas", categoria: "mimos", nome: "Estação lembrancinhas", preco: 120 },
-  { id: "tags-lembrancinhas",categoria: "mimos", nome: "Tags lembrancinhas", preco: null, descricao: "Valor a combinar de acordo com o projeto." },
+  { id: "lembrancinhas",     categoria: "mimos", nome: "Lembrancinhas", preco: null, descricao: "Artes para os mimos dos convidados. Valor a combinar de acordo com o projeto." },
+  { id: "estacao-lembrancinhas", categoria: "mimos", nome: "Estação lembrancinhas", preco: 120, descricao: "Sinalização para o espaço das lembrancinhas." },
+  { id: "tags-lembrancinhas",categoria: "mimos", nome: "Tags lembrancinhas", preco: null, descricao: "Etiquetas personalizadas para as lembrancinhas. Valor a combinar de acordo com o projeto." },
 
-  { id: "pintura-objetos",   categoria: "aplicada", nome: "Pintura de objetos", preco: 60,  unidade: "arte", plural: "artes" },
-  { id: "rotulos-vinhos",    categoria: "aplicada", nome: "Rótulos vinhos",     preco: 120, unidade: "arte", plural: "artes" },
-  { id: "perfume-noivos",    categoria: "aplicada", nome: "Perfume noivos",     preco: 250, unidade: "arte", plural: "artes" },
-  { id: "sandalias",         categoria: "aplicada", nome: "Sandálias",          preco: 250, unidade: "arte", plural: "artes" },
-  { id: "gravacao-vidro",    categoria: "aplicada", nome: "Gravação em vidro",  preco: null, descricao: "Modelo e valores a combinar." },
+  { id: "pintura-objetos",   categoria: "aplicada", nome: "Pintura de objetos", preco: 60,  unidade: "arte", plural: "artes", descricao: "Arte pintada em objetos fornecidos por vocês." },
+  { id: "rotulos-vinhos",    categoria: "aplicada", nome: "Rótulos vinhos",     preco: 120, unidade: "arte", plural: "artes", descricao: "Rótulos exclusivos para vinhos e espumantes. Vocês fornecem as garrafas." },
+  { id: "perfume-noivos",    categoria: "aplicada", nome: "Perfume noivos",     preco: 250, unidade: "arte", plural: "artes", descricao: "Arte aplicada em frascos de perfume. Vocês fornecem o produto." },
+  { id: "sandalias",         categoria: "aplicada", nome: "Sandálias",          preco: 250, unidade: "arte", plural: "artes", descricao: "Arte aplicada em sandálias para a pista. Vocês fornecem as sandálias." },
+  { id: "gravacao-vidro",    categoria: "aplicada", nome: "Gravação em vidro",  preco: null, descricao: "Gravação de arte em taças e peças de vidro. Modelo e valores a combinar." },
 ];
 
 // Item que, quando escolhido, valida os preços da tabela.
@@ -630,6 +698,27 @@ const PORTFOLIO = [
     texto: "Escreva aqui um pouco sobre o casal e o que vocês criaram.", capa: "", fotos: [] },
   { nome: "Projeto 3", local: "Monograma e sinalização", data: "",
     texto: "Escreva aqui um pouco sobre o casal e o que vocês criaram.", capa: "", fotos: [] },
+];
+
+// Perguntas frequentes (pergunta e resposta). Adicione, edite ou remova à vontade.
+const DUVIDAS = [
+  { p: "Os valores incluem impressão?",
+    r: "Não. Os valores da tabela são da arte digital. Impressão e produção são orçadas à parte." },
+  { p: "Preciso contratar a Identidade Visual?",
+    r: "Os valores da tabela valem quando a Identidade Visual é contratada. Para projetos sem identidade visual, chama a gente para um orçamento personalizado." },
+  { p: "O que acontece depois que eu envio o pedido?",
+    r: "O pedido chega no nosso WhatsApp com tudo o que vocês escolheram. A gente conversa, conhece a história de vocês e confirma o orçamento final." },
+  { p: "Vocês atendem fora da minha cidade?",
+    r: "Sim! Atendemos casais do mundo todo." },
+  { p: "Ainda tem agenda?",
+    r: "Estamos com agenda aberta para casamentos em 2026 e 2027." },
+  { p: "Nos itens de arte aplicada, quem fornece o produto?",
+    r: "Vocês. Em pintura de objetos, rótulos, perfume e sandálias, o valor é da arte e da aplicação, e o produto é fornecido pelo casal." },
+];
+
+// Depoimentos de casais. A seção só aparece no site quando houver pelo menos um.
+// Exemplo: { texto: "A papelaria ficou a nossa cara!", casal: "Ana & Pedro" },
+const DEPOIMENTOS = [
 ];
 
 /* =====================================================================
@@ -656,6 +745,7 @@ function montarCatalogo() {
     if (!itens.length) continue;
     const bloco = document.createElement("div");
     bloco.className = "categoria";
+    bloco.id = "cat-" + c.id;
     bloco.innerHTML = `<div class="cab-cat"><img src="marca/icone-laranja.svg" alt=""><h3>${c.nome}</h3></div>${c.texto ? `<p>${c.texto}</p>` : ""}<div class="itens"></div>`;
     const grade = bloco.querySelector(".itens");
     for (const s of itens) grade.appendChild(cartao(s));
@@ -726,6 +816,65 @@ function mudou(id) {
   const el = document.querySelector(`.item[data-id="${id}"]`);
   if (el) atualizarCartao(el);
   atualizarResumo();
+}
+
+/* ---------- Atalhos de categoria ---------- */
+function montarAtalhos() {
+  const nav = $("#atalhos");
+  for (const c of CATEGORIAS) {
+    if (!document.getElementById("cat-" + c.id)) continue;
+    const a = document.createElement("a");
+    a.href = "#cat-" + c.id;
+    a.dataset.cat = c.id;
+    a.innerHTML = `${c.nome}<span class="qtd-sel" hidden></span>`;
+    nav.appendChild(a);
+  }
+  // Destaca a categoria visível
+  if (!("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(entradas => {
+    for (const e of entradas) {
+      if (!e.isIntersecting) continue;
+      const id = e.target.id.replace("cat-", "");
+      nav.querySelectorAll("a").forEach(a => {
+        const ativo = a.dataset.cat === id;
+        a.setAttribute("aria-current", ativo ? "true" : "false");
+        if (ativo) nav.scrollTo({ left: a.offsetLeft - 20, behavior: semMovimento ? "auto" : "smooth" });
+      });
+    }
+  }, { rootMargin: "-160px 0px -60% 0px" });
+  document.querySelectorAll(".categoria").forEach(c => io.observe(c));
+}
+function atualizarAtalhos() {
+  document.querySelectorAll("#atalhos a").forEach(a => {
+    const n = SERVICOS.filter(s => s.categoria === a.dataset.cat && selecao[s.id]).length;
+    const badge = a.querySelector(".qtd-sel");
+    badge.hidden = !n;
+    badge.textContent = n;
+  });
+}
+
+/* ---------- Dúvidas e depoimentos ---------- */
+function montarDuvidas() {
+  const faq = $("#faq");
+  DUVIDAS.forEach((d, i) => {
+    const el = document.createElement("details");
+    el.innerHTML = `<summary></summary><p></p>`;
+    el.querySelector("summary").textContent = d.p;
+    el.querySelector("p").textContent = d.r;
+    faq.appendChild(el);
+    revelar(el, i % 3);
+  });
+  if (!DEPOIMENTOS.length) return;
+  $("#depoimentos").hidden = false;
+  DEPOIMENTOS.forEach((d, i) => {
+    const f = document.createElement("figure");
+    f.className = "depoimento";
+    f.innerHTML = `<blockquote></blockquote><figcaption></figcaption>`;
+    f.querySelector("blockquote").textContent = d.texto;
+    f.querySelector("figcaption").textContent = d.casal;
+    $("#lista-depoimentos").appendChild(f);
+    revelar(f, i % 3);
+  });
 }
 
 /* ---------- Resumo ---------- */
@@ -815,6 +964,7 @@ function atualizarResumo() {
   $("#limpar").hidden = !linhas.length;
 
   const n = linhas.length;
+  atualizarAtalhos();
   $("#barra-qtd").textContent = `${n} ${n === 1 ? "item" : "itens"}`;
   $("#barra-total").textContent = `${reais(total)} · Ver pedido`;
   if (n && totalAnterior !== null && total !== totalAnterior) pulsar($("#barra-mobile"));
@@ -961,6 +1111,8 @@ $("#link-whats").href = `https://wa.me/${WHATSAPP}`;
 $("#link-insta").href = INSTAGRAM;
 $("#ano").textContent = new Date().getFullYear();
 montarCatalogo();
+montarAtalhos();
+montarDuvidas();
 document.querySelectorAll("#catalogo .cab-cat").forEach(el => revelar(el));
 document.querySelectorAll("#catalogo .itens").forEach(g => [...g.children].forEach((el, i) => revelar(el, i % 4)));
 atualizarResumo();

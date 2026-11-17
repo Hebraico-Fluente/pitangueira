@@ -19,6 +19,16 @@ Para um domínio próprio: **Settings → Domains & Routes → Add → Custom do
 
 Cada alteração enviada ao GitHub publica o site automaticamente.
 
+### Aviso de pedido novo no celular (opcional)
+
+1. Instale o app gratuito **ntfy** (Android ou iPhone).
+2. Invente um nome secreto e difícil de adivinhar, por exemplo `pitangueira-leads-8h3k2q`.
+3. No app, toque em **+** e assine esse nome.
+4. Na Cloudflare: projeto → **Settings → Runtime variables and secrets → Add variable**,
+   Type **Secret**, Name **`NTFY_TOPICO`**, Value: o nome secreto → **Deploy**.
+
+A cada pedido novo, o celular recebe "Novo pedido no site" com o nome do casal e o total. Tocando no aviso, abre o painel.
+
 > Também funciona como projeto **Pages** (pasta de saída `public`, binding D1 `DB`, secret `PAINEL_SENHA`).
 
 ## Como editar o site
@@ -31,16 +41,19 @@ Tudo que muda no dia a dia fica no começo do `<script>` em `public/index.html`,
 | Serviços e preços | `const SERVICOS` (use `preco: null` para "a combinar") |
 | Categorias | `const CATEGORIAS` |
 | Projetos do portfólio | `const PORTFOLIO` |
+| Perguntas frequentes | `const DUVIDAS` |
+| Depoimentos (a seção aparece quando houver algum) | `const DEPOIMENTOS` |
 
 Fotos:
-- Pétala e Isa: `public/fotos/petala.png` e `public/fotos/isa.png`
+- Pétala e Isa: `public/fotos/petala.webp` e `public/fotos/isa.webp`
 - Portfólio: `public/fotos/` (ex.: `public/fotos/petala-lucas/capa.jpg`)
 
 ## Estrutura
 
 ```
 public/            o que vai para o ar
-  index.html       site (orçamento, quem somos, portfólio)
+  index.html       site (orçamento, quem somos, portfólio, dúvidas)
+  og.jpg           imagem da prévia do link (WhatsApp, Instagram...)
   painel/          painel de leads
   marca/           logo e ícone em SVG (cores do manual de marca)
   fotos/           fotos
