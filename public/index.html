@@ -166,7 +166,28 @@
   }
   .etiqueta { display: inline-block; font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; margin-bottom: 14px; }
   .hero .etiqueta { color: var(--bordo-escuro); background: var(--pessego); padding: 6px 14px; border-radius: 999px; }
-  @media (max-width: 480px) { .hero .etiqueta { font-size: .66rem; letter-spacing: .12em; } }
+  @media (max-width: 480px) { .hero .etiqueta { font-size: .64rem; letter-spacing: .08em; padding: 6px 12px; } }
+  @media (max-width: 380px) { .hero .etiqueta { font-size: .6rem; letter-spacing: .03em; } }
+  .hero .container { position: relative; z-index: 1; }
+
+  /* Selo "Pétala & Isa" logo abaixo do título */
+  .dupla { display: inline-flex; align-items: center; gap: 12px; margin-top: 22px; padding: 6px 18px 6px 6px; border-radius: 999px; background: var(--pessego); color: var(--texto); text-decoration: none; box-shadow: 0 10px 24px -14px rgba(126, 28, 53, .6); transition: transform 250ms var(--ease-out), box-shadow 250ms var(--ease-out); }
+  @media (hover: hover) and (pointer: fine) { .dupla:hover { transform: translateY(-2px) rotate(-1deg); } .dupla:hover .rostos img:nth-child(1) { transform: rotate(-12deg); } .dupla:hover .rostos img:nth-child(2) { transform: rotate(10deg); } }
+  .dupla .rostos { display: flex; }
+  .dupla .rostos img { width: 46px; height: 46px; object-fit: cover; object-position: 50% 20%; border-radius: 50%; background: var(--creme); border: 2px solid var(--bordo); transition: transform 300ms var(--ease-pop); }
+  .dupla .rostos img + img { margin-left: -14px; }
+  .dupla .quem { font-size: .92rem; font-weight: 500; text-align: left; line-height: 1.25; }
+  .dupla .quem strong { display: block; font-family: var(--f-script); font-weight: 400; font-size: 1.7rem; line-height: 1; color: var(--bordo-escuro); }
+  .hero .dupla + p { margin-top: 18px; }
+
+  /* Adesivos das duas nos cantos do hero (só em telas grandes) */
+  .adesivo-hero { position: absolute; z-index: 0; width: 210px; height: auto; filter: drop-shadow(0 14px 18px rgba(59, 22, 34, .35)); pointer-events: none; display: none; }
+  .adesivo-hero.a1 { left: max(2vw, calc(50% - 640px)); top: 400px; --r: -8deg; }
+  .adesivo-hero.a2 { right: max(2vw, calc(50% - 640px)); top: 70px; width: 185px; --r: 7deg; --t: 10s; }
+  @media (min-width: 1100px) {
+    .adesivo-hero { display: block; transform: rotate(var(--r)); animation: entra-adesivo 900ms var(--ease-pop) 900ms backwards, flutua var(--t, 8s) var(--ease-in-out) 1.8s infinite alternate; }
+  }
+  @keyframes entra-adesivo { from { opacity: 0; transform: scale(.6) rotate(calc(var(--r) - 20deg)); } }
   .hero h1 { font-size: clamp(2.8rem, 7vw, 5.2rem); max-width: 14ch; margin: 0 auto; }
   .hero h1 .script { display: block; font-size: 1.15em; line-height: .9; margin-top: .05em; }
   .hero p { max-width: 52ch; margin: 22px auto 34px; font-size: 1.08rem; font-weight: 500; color: var(--texto); }
@@ -490,11 +511,17 @@
     <svg viewBox="0 0 200 200" class="estrela e3" aria-hidden="true"><use href="#estrela"/></svg>
     <svg viewBox="0 0 200 200" class="estrela e4" aria-hidden="true"><use href="#estrela"/></svg>
     <svg viewBox="0 0 200 200" class="estrela e5" aria-hidden="true"><use href="#estrela"/></svg>
+    <img class="adesivo-hero a1" src="fotos/petala.webp" alt="" aria-hidden="true" width="440" height="520">
+    <img class="adesivo-hero a2" src="fotos/isa.webp" alt="" aria-hidden="true" width="391" height="413">
     <div class="container">
       <img class="icone-hero entra" src="marca/icone-branco.svg" alt="" aria-hidden="true">
-      <span class="etiqueta entra" style="--d:1">Design & papelaria para casamentos</span>
+      <span class="etiqueta entra" style="--d:1">Design & papelaria criativa para casamentos</span>
       <h1 class="entra" style="--d:2">Seu casamento com a <span class="script troca" aria-hidden="true"><span class="frase ativa primeira">cara de vocês</span><span class="frase">sua essência</span></span><span class="sr">cara de vocês, com a sua essência</span></h1>
-      <p class="entra" style="--d:4">Criamos a identidade visual e a papelaria do seu grande dia, sem moldes prontos. Monte seu orçamento aqui e envie direto para o nosso WhatsApp.</p>
+      <a class="dupla entra" style="--d:3" href="#sobre">
+        <span class="rostos" aria-hidden="true"><img src="fotos/petala.webp" alt="" width="440" height="520"><img src="fotos/isa.webp" alt="" width="391" height="413"></span>
+        <span class="quem"><strong>Pétala & Isa</strong> duas designers fora da caixa</span>
+      </a>
+      <p class="entra" style="--d:4">Nada de casamento com cara de “mais um”. A gente cria a identidade visual e a papelaria do seu grande dia sem moldes prontos: com cor, humor e muita personalidade.</p>
       <div class="botoes entra" style="--d:5">
         <a class="btn btn-bordo" href="#orcamento">Montar meu orçamento</a>
         <a class="btn btn-branco" href="#portfolio">Ver portfólio</a>
